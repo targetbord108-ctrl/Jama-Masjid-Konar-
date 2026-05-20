@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Settings - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link active">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">System & Timings Settings</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Alter public prayer grids, information details and notice tickers</span>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        
+        <div class="admin-grid-settings">
+          
+          <!-- Left settings panel tabs selection list -->
+          <ul class="settings-navigation">
+            <li>
+              <button class="settings-nav-btn active" data-target="admin-settings-profile">
+                <i data-lucide="building" style="width:16px; height:16px; float:left; margin-top:3px; margin-right:8px;"></i>
+                Masjid Profile Settings
+              </button>
+            </li>
+            <li>
+              <button class="settings-nav-btn" data-target="admin-settings-timings">
+                <i data-lucide="clock" style="width:16px; height:16px; float:left; margin-top:3px; margin-right:8px;"></i>
+                Prayer Timings Grid
+              </button>
+            </li>
+            <li>
+              <button class="settings-nav-btn" data-target="admin-settings-footer">
+                <i data-lucide="layout" style="width:16px; height:16px; float:left; margin-top:3px; margin-right:8px;"></i>
+                Footer Settings & Links
+              </button>
+            </li>
+            <li style="border-top: 1px solid var(--border-color); margin-top:10px; padding-top:10px;">
+              <span style="font-size:11px; padding:6px 16px; color:var(--text-muted); font-weight:700; text-transform:uppercase; display:block;">Board Credentials</span>
+              <div style="padding:10px 16px; font-size:12px; line-height:1.4; color:var(--text-muted);">
+                 All parameters are bound to your active secure LocalStorage system safely.
+              </div>
+            </li>
+          </ul>
+
+          <!-- Right settings forms container panels -->
+          <div>
+            
+            <!-- Panel 1: Masjid Profile Form Details -->
+            <div class="donation-box-card settings-panel-form" id="admin-settings-profile" style="box-shadow:var(--shadow-sm); padding:30px;">
+              <h3 style="font-family:var(--font-serif); font-size:20px; color:var(--primary); font-weight:700; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                🕌 Al-Noor Profile Parameters
+              </h3>
+
+              <form id="settings-profile-form">
+                <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:16px;">
+                  <div class="form-group">
+                    <label for="sp-name" class="form-label">Al-Noor Center Full Name *</label>
+                    <input type="text" id="sp-name" class="form-input" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="sp-short" class="form-label">Short Brand Name (Abbreviation)</label>
+                    <input type="text" id="sp-short" class="form-input">
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                  <div class="form-group">
+                    <label for="sp-est" class="form-label">Establishment CE / AH year</label>
+                    <input type="text" id="sp-est" class="form-input">
+                  </div>
+                  <div class="form-group">
+                    <label for="sp-email" class="form-label">Contact Email Link *</label>
+                    <input type="email" id="sp-email" class="form-input" required>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="sp-adr" class="form-label">Physical Address coordinates</label>
+                  <input type="text" id="sp-adr" class="form-input">
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+                  <div class="form-group">
+                    <label for="sp-phone" class="form-label">Administrative Phone hotline *</label>
+                    <input type="text" id="sp-phone" class="form-input" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="sp-imam" class="form-label">Senior Scholar Resident Imam</label>
+                    <input type="text" id="sp-imam" class="form-input">
+                  </div>
+                </div>
+
+                <input type="hidden" id="sp-muezzin" value="Qari Ibrahim Siddiq">
+
+                <div class="form-group" style="border-top:1px solid var(--border-color); padding-top:20px; margin-top:10px;">
+                  <label for="sp-ticker" class="form-label" style="display:flex; align-items:center; gap:6px; color:var(--primary);">
+                    <i data-lucide="radio" style="width:16px; height:16px; color:var(--danger)"></i> Public Notice Marquee Banner Content
+                  </label>
+                  <input type="text" id="sp-ticker" class="form-input" placeholder="Scrolling text seen on top of public navbar pages...">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="margin-top:10px;">Save Profile Changes</button>
+              </form>
+            </div>
+
+            <!-- Panel 2: Masjid Prayer Timings Settings Form -->
+            <div class="donation-box-card settings-panel-form hidden" id="admin-settings-timings" style="box-shadow:var(--shadow-sm); padding:30px;">
+              <h3 style="font-family:var(--font-serif); font-size:20px; color:var(--primary); font-weight:700; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                ⏰ Congregational Prayer Timings Clocks
+              </h3>
+
+              <form id="settings-prayer-form">
+                
+                <!-- Fajr -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(2, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">🌅 Fajr Salah</strong>
+                  <input type="text" id="s-fajr-ath" class="form-input text-sm" style="padding:8px 12px;" placeholder="Athan Hour (e.g. 04:30 AM)">
+                  <input type="text" id="s-fajr-iq" class="form-input text-sm" style="padding:8px 12px;" placeholder="Iqamah Hour (e.g. 05:00 AM)">
+                </div>
+
+                <!-- Zuhar -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(2, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">☀️ Dhuhr Salah</strong>
+                  <input type="text" id="s-dh-ath" class="form-input text-sm" style="padding:8px 12px;">
+                  <input type="text" id="s-dh-iq" class="form-input text-sm" style="padding:8px 12px;">
+                </div>
+
+                <!-- Asr -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(2, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">⛅ Asr Salah</strong>
+                  <input type="text" id="s-asr-ath" class="form-input text-sm" style="padding:8px 12px;">
+                  <input type="text" id="s-asr-iq" class="form-input text-sm" style="padding:8px 12px;">
+                </div>
+
+                <!-- Maghrib -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(2, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">🌙 Maghrib Salah</strong>
+                  <input type="text" id="s-mag-ath" class="form-input text-sm" style="padding:8px 12px;">
+                  <input type="text" id="s-mag-iq" class="form-input text-sm" style="padding:8px 12px;">
+                </div>
+
+                <!-- Isha -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(2, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">🌃 Isha Salah</strong>
+                  <input type="text" id="s-ish-ath" class="form-input text-sm" style="padding:8px 12px;">
+                  <input type="text" id="s-ish-iq" class="form-input text-sm" style="padding:8px 12px;">
+                </div>
+
+                <!-- Jumma Congregation 1 -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(3, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">🕋 Jumma Row 1</strong>
+                  <input type="text" id="s-jum1-ath" class="form-input text-sm" style="padding:8px 12px;" placeholder="Khutbah Hour">
+                  <input type="text" id="s-jum1-iq" class="form-input text-sm" style="padding:8px 12px;" placeholder="Salah Hour">
+                  <input type="text" id="s-jum1-khat" class="form-input text-sm" style="padding:8px 12px;" placeholder="Imam/Khateeb Row">
+                </div>
+
+                <!-- Jumma Congregation 2 -->
+                <div style="display:grid; grid-template-columns: 1fr repeat(3, 1.2fr); gap:16px; align-items:center; margin-bottom:16px; border-bottom: 1px dotted var(--border-color); padding-bottom:12px;">
+                  <strong style="color:var(--primary); font-size:14px;">🕋 Jumma Row 2</strong>
+                  <input type="text" id="s-jum2-ath" class="form-input text-sm" style="padding:8px 12px;">
+                  <input type="text" id="s-jum2-iq" class="form-input text-sm" style="padding:8px 12px;">
+                  <input type="text" id="s-jum2-khat" class="form-input text-sm" style="padding:8px 12px;">
+                </div>
+
+                <!-- Ramadan Timings Special -->
+                <div style="margin-top:20px; border-top:1px solid var(--border-color); padding-top:20px;">
+                  <span class="form-label" style="color:var(--primary);"><i data-lucide="star" style="width:16px; height:16px; fill:var(--secondary-light); color:var(--secondary-light); float:left; margin-right:6px;"></i> Ramadan Special Timings Parameters</span>
+                  <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:12px; margin-top:12px;">
+                    <div>
+                      <label style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Sehar Ends</label>
+                      <input type="text" id="s-sehar" class="form-input text-xs" style="padding:8px;">
+                    </div>
+                    <div>
+                      <label style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Iftar Begins</label>
+                      <input type="text" id="s-iftar" class="form-input text-xs" style="padding:8px;">
+                    </div>
+                    <div>
+                      <label style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Taraweeh Salah</label>
+                      <input type="text" id="s-tar" class="form-input text-xs" style="padding:8px;">
+                    </div>
+                  </div>
+                </div>
+
+                <div style="margin-top:24px; text-align:right;">
+                  <button type="submit" class="btn btn-primary">Adjust Congregs Schedule Calendar</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Panel 3: Footer Settings Form -->
+            <div class="donation-box-card settings-panel-form hidden" id="admin-settings-footer" style="box-shadow:var(--shadow-sm); padding:30px;">
+              <h3 style="font-family:var(--font-serif); font-size:20px; color:var(--primary); font-weight:700; margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:10px;">
+                🌐 Footer Links & Support Channels
+              </h3>
+              <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
+                Manage links and connections rendered in the dynamic "Support & Connect" area at the bottom of public pages.
+              </p>
+
+              <form id="settings-footer-form">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                  <div class="form-group">
+                    <label for="sf-youtube" class="form-label"><i data-lucide="youtube" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px; color:#ef4444;"></i> YouTube Channel URL</label>
+                    <input type="url" id="sf-youtube" class="form-input" placeholder="https://youtube.com/c/AlNoorGrandMasjid">
+                  </div>
+                  <div class="form-group">
+                    <label for="sf-whatsapp" class="form-label"><i data-lucide="message-circle" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px; color:#22c55e;"></i> WhatsApp Join Link</label>
+                    <input type="url" id="sf-whatsapp" class="form-input" placeholder="https://chat.whatsapp.com/invite/AlNoorGrandMasjid">
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                  <div class="form-group">
+                    <label for="sf-map" class="form-label"><i data-lucide="map" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px; color:#3b82f6;"></i> Google Maps Location Link</label>
+                    <input type="url" id="sf-map" class="form-input" placeholder="https://maps.google.com/?q=Al-Noor+Grand+Masjid">
+                  </div>
+                  <div class="form-group">
+                    <label for="sf-facebook" class="form-label"><i data-lucide="facebook" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px; color:#1877f2;"></i> Facebook Page URL</label>
+                    <input type="url" id="sf-facebook" class="form-input" placeholder="https://www.facebook.com/AlNoorGrandMasjid">
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                  <div class="form-group">
+                    <label for="sf-instagram" class="form-label"><i data-lucide="instagram" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px; color:#ec4899;"></i> Instagram Profile URL</label>
+                    <input type="url" id="sf-instagram" class="form-input" placeholder="https://www.instagram.com/AlNoorGrandMasjid">
+                  </div>
+                  <div class="form-group">
+                    <label for="sf-telegram" class="form-label"><i data-lucide="send" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px; color:#0ea5e9;"></i> Telegram Channel Link</label>
+                    <input type="url" id="sf-telegram" class="form-input" placeholder="https://t.me/AlNoorGrandMasjid">
+                  </div>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+                  <div class="form-group">
+                    <label for="sf-email" class="form-label"><i data-lucide="mail" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px;"></i> Support Email Address</label>
+                    <input type="email" id="sf-email" class="form-input" placeholder="support@alnoormasjid.org">
+                  </div>
+                  <div class="form-group">
+                    <label for="sf-phone" class="form-label"><i data-lucide="phone" style="width:14px; height:14px; display:inline; vertical-align:middle; margin-right:4px;"></i> Support Phone Number</label>
+                    <input type="text" id="sf-phone" class="form-input" placeholder="+1 (555) 786-1234">
+                  </div>
+                </div>
+
+                <div style="margin-top:24px; text-align:right;">
+                  <button type="submit" class="btn btn-primary" style="background-color: var(--secondary); transition: all 0.3s ease;">Save Footer Connection Links</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

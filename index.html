@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Al-Noor Grand Masjid & Islamic Center</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Loading ticker announcements -->
+  <div class="ticker-bar">
+    <div class="container">
+      <div class="ticker-wrapper">
+        <span class="ticker-title">Notice</span>
+        <span class="ticker-scroll" id="ticker-announcement-content">🌙 Welcome to Al-Noor Grand Masjid & Islamic Center. Loading latest announcements...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive Glass navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/index.html" class="logo-link" id="nav-logo">
+        <i data-lucide="mosque" class="logo-icon"></i>
+        <div>
+          <h1 class="logo-text" id="banner-masjid-name">Al-Noor</h1>
+          <span class="logo-sub">Grand Masjid</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/index.html" class="nav-link active"><i data-lucide="home"></i><span>Home</span></a></li>
+          <li><a href="/about.html" class="nav-link"><i data-lucide="info"></i><span>About</span></a></li>
+          <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+          <li><a href="/gallery.html" class="nav-link"><i data-lucide="image"></i><span>Gallery</span></a></li>
+          <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+          <li id="auth-nav-indicator">
+            <!-- Dynamic Sign-in / Dashboard button filled by JS -->
+          </li>
+          <li><a href="/donation.html" class="nav-link nav-btn-donate"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Nav Trigger -->
+      <button class="mobile-nav-toggle" id="mobile-toggle-btn">
+        <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Slide-out panel -->
+  <div class="mobile-drawer-backdrop" id="mobile-backdrop"></div>
+  <aside class="mobile-drawer" id="mobile-drawer-panel">
+    <div class="mobile-drawer-header">
+      <span class="logo-text" style="color:var(--primary); font-size:18px;">Navigation Menu</span>
+      <button class="mobile-drawer-close" id="mobile-close-btn">
+        <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="/index.html" class="nav-link active"><i data-lucide="home"></i><span>Home</span></a></li>
+      <li><a href="/about.html" class="nav-link"><i data-lucide="info"></i><span>About</span></a></li>
+      <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+      <li><a href="/gallery.html" class="nav-link"><i data-lucide="image"></i><span>Gallery</span></a></li>
+      <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+      <li><a href="/donation.html" class="nav-link nav-btn-donate" style="justify-content: center; margin-top: 15px;"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Majestic Hero Banner Section -->
+  <section class="hero">
+    <!-- Optional premium overlay representing background elements -->
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.12), transparent 60%); pointer-events: none;"></div>
+    
+    <div class="container" style="position: relative; z-index: 10;">
+      <div class="hero-grid" style="margin-bottom: 40px;">
+        <div class="hero-content">
+          <!-- Prominent Masjid Emblem Logo -->
+          <div style="background-color: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center; margin-bottom: 24px; backdrop-filter: blur(8px);">
+            <i data-lucide="mosque" style="width: 44px; height: 44px; color: var(--secondary-light);"></i>
+          </div>
+          
+          <h1 id="homepage-masjid-title" style="font-family: var(--font-serif); font-size: 44px; line-height: 1.25; margin-bottom: 16px; font-weight: 700;">Loading Al-Noor Masjid...</h1>
+          <p id="homepage-masjid-sub" style="font-size: 18px; color: rgba(255, 255, 255, 0.85); margin-bottom: 30px; line-height: 1.6;">Serving the community since 1412 AH (1992 CE)</p>
+          
+          <!-- Live Ticking Clock and Islamic Dates -->
+          <div style="background-color: rgba(0, 0, 0, 0.55); border-left: 4px solid var(--secondary-light); border-radius: 8px; padding: 18px 24px; display: inline-block; text-align: left; margin-bottom: 30px; backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.08);">
+            <div style="font-family: var(--font-heading); font-size: 28px; font-weight: 700; color: var(--secondary-light); letter-spacing: 0.5px;" id="live-time-display">--:--:--</div>
+            <div style="font-size: 13.5px; font-weight: 500; color: #fff; margin-top: 6px;" id="live-gregorian-date">Loading date...</div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--secondary-light); letter-spacing: 1.5px; margin-top: 4px; text-transform: uppercase;" id="live-hijri-date">DHUL-HIJJAH 3, 1447 AH</div>
+          </div>
+
+          <div class="hero-actions" style="display: flex; gap: 16px;">
+            <a href="/donation.html" class="btn btn-primary" style="padding: 14px 28px; font-size: 15px; border-radius: 8px;"><i data-lucide="heart" style="width:18px; height:18px;"></i> Support With Charity</a>
+            <a href="/about.html" class="btn btn-secondary" style="padding: 14px 28px; font-size: 15px; border-radius: 8px;"><i data-lucide="book-open" style="width:18px; height:18px;"></i> Learn Our History</a>
+          </div>
+        </div>
+
+        <!-- Prayer Clock Widgets Overlay -->
+        <div class="hero-prayer-widget" style="border: 1px solid rgba(255, 255, 255, 0.18); border-radius: 14px; background: rgba(5, 30, 20, 0.45); backdrop-filter: blur(16px); padding: 26px;">
+          <div class="widget-header" style="border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 14px; margin-bottom: 20px;">
+            <span class="widget-header-title" style="font-weight: 700; font-size: 18px; color: var(--secondary-light); display: flex; align-items: center; justify-content: center; gap: 8px;">
+              <i data-lucide="clock" style="width: 18px; height: 18px;"></i> Today's Congregation Times
+            </span>
+            <p class="widget-header-date" style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;">Dynamic Local Timetable Schedule</p>
+          </div>
+          <div class="widget-rows" id="widget-prayer-list">
+            <!-- Populated dynamically via JS database references -->
+            <div style="color:var(--secondary-light); padding:40px 0; text-align:center;">
+               <span class="dot-pulse" style="display: inline-block; margin-right: 8px;"></span>
+               <span>Synchronizing Holy times...</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Extended Hero Section Row for 5-Times prayer salah cards -->
+      <div style="border-top: 1px solid rgba(255, 255, 255, 0.15); padding-top: 40px; margin-top: 40px;">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--secondary-light);">Athan & Congregation</span>
+          <h2 style="font-family: var(--font-serif); font-size: 22px; color: var(--white); margin-top: 4px; font-weight: 500;">Direct Iqamah Clock Status</h2>
+        </div>
+        <div class="prayer-time-grid" id="prayer-cards-section-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px;">
+          <!-- Populated in Real-time by app.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: ARTICLES SECTION (Show Articles FIRST after hero section) -->
+  <section class="section-padding" id="homepage-articles-section" style="background-color: var(--white); border-bottom: 1px solid var(--border-color); content-visibility: auto;">
+    <div class="container">
+      <div class="section-headline" style="text-align: center; margin-bottom: 45px;">
+        <span class="section-tag" style="background-color: var(--primary-glow); color: var(--primary); padding: 5px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid rgba(10, 77, 52, 0.12);">Educational Library</span>
+        <h2 class="section-title" style="font-family: var(--font-serif); font-size: 34px; color: var(--primary); margin-top: 14px; font-weight: 700;">Islamic Knowledge & Articles</h2>
+        <p class="section-desc" style="color: var(--text-muted); max-width: 650px; margin: 12px auto 0; font-size: 15px; line-height: 1.6;">Enhance theoretical understanding, morals, and spiritual decorum of Islamic tenets through verified scholastic articles.</p>
+      </div>
+
+      <!-- Articles Filters, Options & Search bar bar -->
+      <div class="articles-toolbar" style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; margin-bottom: 35px; background-color: var(--bg-light); padding: 20px 24px; border-radius: 12px; border: 1px solid var(--border-color);">
+        <!-- Interactive Category Select Tag filter -->
+        <div class="filter-tabs" id="homepage-article-category-tabs" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="filter-btn active" data-category="All" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">All Fields</button>
+          <button class="filter-btn" data-category="History" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">History</button>
+          <button class="filter-btn" data-category="Spirituality" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">Spirituality</button>
+          <button class="filter-btn" data-category="Community" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">Community</button>
+        </div>
+        
+        <!-- Interactive search bar input -->
+        <div style="position: relative; display: flex; align-items: center; min-width: 280px; width: 320px;">
+          <input type="text" id="homepage-article-search" placeholder="Search knowledge library..." style="width: 100%; padding: 11px 16px; padding-left: 42px; border-radius: 8px; border: 1px solid var(--border-color); outline: none; font-size: 14px; background: var(--white); box-sizing: border-box; font-family: var(--font-sans); color: var(--text-main);" onfocus="this.style.borderColor='var(--primary)'" onblur="this.style.borderColor='var(--border-color)'">
+          <i data-lucide="search" style="position: absolute; left: 14px; width: 17px; height: 17px; color: var(--text-muted); pointer-events: none;"></i>
+        </div>
+      </div>
+
+      <!-- Main dynamically rendered articles container -->
+      <div id="homepage-articles-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;">
+        <!-- Populated dynamically via JS of db logic -->
+        <div style="text-align: center; color: var(--text-muted); padding: 40px; grid-column: 1/-1;">
+          <p style="font-size: 15px;">Synchronizing library assets...</p>
+        </div>
+      </div>
+
+      <!-- More articles redirect trigger -->
+      <div style="text-align: center; margin-top: 45px;">
+        <a href="/articles.html" class="btn btn-outline-primary" style="font-size: 14px; font-weight: 700; padding: 14px 34px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
+          <span>Explore Knowledge Library</span> <i data-lucide="arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: ANNOUNCEMENT SECTION (Show announcements AFTER articles) -->
+  <section class="section-padding" id="homepage-announcements-section" style="background-color: var(--bg-light); border-bottom: 1px solid var(--border-color); content-visibility: auto;">
+    <div class="container">
+      <div class="section-headline" style="text-align: center; margin-bottom: 45px;">
+        <span class="section-tag" style="background-color: var(--secondary-glow); border: 1px dashed var(--secondary-light); color: var(--primary); padding: 5px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Realtime Board</span>
+        <h2 class="section-title" style="font-family: var(--font-serif); font-size: 34px; color: var(--primary); margin-top: 14px; font-weight: 700;">Community Announcements & Bulletins</h2>
+        <p class="section-desc" style="color: var(--text-muted); max-width: 650px; margin: 12px auto 0; font-size: 15px; line-height: 1.6;">Stay informed about crucial congregation adjustments, sermon topics, Ramadan schedules, and upcoming community projects.</p>
+      </div>
+
+      <!-- Animated Scrolling Notification Bar marquee -->
+      <div style="background: linear-gradient(135deg, var(--danger), #881337); color: var(--white); border-radius: 8px; padding: 14px 20px; display: flex; align-items: center; gap: 14px; margin-bottom: 35px; overflow: hidden; box-shadow: var(--shadow-sm); border-left: 5px solid var(--secondary-light);">
+        <span style="background: rgba(255, 255, 255, 0.18); font-weight: 700; font-size: 11px; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; letter-spacing: 0.5px;">
+          <span class="dot-pulse" style="background-color: var(--white); width: 8px; height: 8px; border-radius: 50%; display: inline-block;"></span> Important Bulletin
+        </span>
+        <marquee scrollamount="5" style="font-size: 14.5px; font-weight: 500;" id="homepage-marquee-text-panel">
+          🌙 SPECIAL ANNOUNCEMENT: Taraweeh Prayers begin nightly at 08:45 PM in main hall. Daily Halal Iftars are served for students and travelers at the Annex Cafeteria starting at Sunset. Eid Congregations will be finalized upon regional moon sighting verification.
+        </marquee>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 30px; align-items: start;" class="announcements-grid-layout">
+        <!-- Interactive notices column -->
+        <div class="donation-box-card" style="box-shadow: var(--shadow-sm); background: var(--white); border-radius: 12px; padding: 30px; border: 1px solid var(--border-color);">
+          <h3 style="font-family: var(--font-serif); color: var(--primary); font-size: 22px; font-weight: 700; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--border-color); padding-bottom: 14px;">
+            <i data-lucide="bell" style="color: var(--secondary-light); fill: var(--secondary-glow); width: 22px; height: 22px;"></i> Active Bulletins Board
+          </h3>
+          <div class="widget-rows" id="homepage-announcements-list" style="display: flex; flex-direction: column; gap: 16px;">
+            <!-- Rendered dynamically of LocalStorage listings -->
+            <p style="text-align: center; color: var(--text-muted);">Synchronizing bulletins...</p>
+          </div>
+        </div>
+
+        <!-- Jumma, Ramadan & Eid Specific columns sidebars -->
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <!-- Friday sermon schedules card -->
+          <div style="background: linear-gradient(135deg, var(--primary), #0a3a27); border-radius: 12px; padding: 26px; color: var(--white); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; border-top: 4px solid var(--secondary-light);">
+            <div style="position: absolute; right: -20px; top: -20px; opacity: 0.04; pointer-events: none;">
+              <i data-lucide="mosque" style="width: 140px; height: 140px;"></i>
+            </div>
+            
+            <span style="background-color: rgba(255,255,255,0.18); color: var(--secondary-light); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; display: inline-block; margin-bottom: 14px; letter-spacing: 0.5px;">Weekly Congregation</span>
+            <h3 style="font-family: var(--font-serif); font-size: 21px; font-weight: 700; margin-bottom: 8px; color: var(--secondary-light); display: flex; align-items: center; gap: 6px;">
+              🕌 Friday Jumma Assemblies
+            </h3>
+            <p style="font-size: 13px; color: rgba(255, 255, 255, 0.85); line-height: 1.5; margin-bottom: 18px;">We organize two consecutive shifts of Jumma prayers weekly to safely accommodate the community's busy work shift timetables.</p>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+              <div style="background-color: rgba(255,255,255,0.08); padding: 14px; border-radius: 8px; border-left: 3px solid var(--secondary-light); transition: var(--transition);" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.12)'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.08)'">
+                <div style="font-size: 13.5px; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
+                  <span>First Service Shift</span>
+                  <span style="color: var(--secondary-light); font-weight: bold;">1:30 PM Salah</span>
+                </div>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;">Khateeb: Sheikh Muhammad Al-Azhari</p>
+              </div>
+              <div style="background-color: rgba(255,255,255,0.08); padding: 14px; border-radius: 8px; border-left: 3px solid var(--secondary-light); transition: var(--transition);" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.12)'" onmouseout="this.style.backgroundColor='rgba(255,255,255,0.08)'">
+                <div style="font-size: 13.5px; font-weight: 700; display: flex; justify-content: space-between; align-items: center;">
+                  <span>Second Service Shift</span>
+                  <span style="color: var(--secondary-light); font-weight: bold;">2:30 PM Salah</span>
+                </div>
+                <p style="font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 4px;">Khateeb: Guest Lecturers</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ramadan / Eid Calendar Special Notices widget -->
+          <div style="background: var(--white); border: 1px solid var(--border-color); border-radius: 12px; padding: 26px; box-shadow: var(--shadow-sm); position: relative;" id="ramadan-quick-times-card">
+            <h3 style="font-family: var(--font-serif); font-size: 19px; color: var(--primary); font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="moon-star" style="color: var(--secondary); width: 18px; height: 18px;"></i> Ramadan & Eid Notices
+            </h3>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.5;">Quick access dashboard representing continuous Fasting schedules and congregational prayers.</p>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 18px;">
+              <div style="background-color: var(--bg-light); padding: 12px; border-radius: 8px; text-align: center; border: 1px solid var(--border-color);">
+                <span style="font-size: 10.5px; color: var(--text-muted); display: block; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Sahoor Ends</span>
+                <span style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--primary); margin-top: 2px; display: block;" id="ramadan-sehar-time">04:20 AM</span>
+              </div>
+              <div style="background-color: var(--bg-light); padding: 12px; border-radius: 8px; text-align: center; border: 1px solid var(--border-color);">
+                <span style="font-size: 10.5px; color: var(--text-muted); display: block; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">Iftar Begins</span>
+                <span style="font-family: var(--font-heading); font-size: 16px; font-weight: 700; color: var(--primary); margin-top: 2px; display: block;" id="ramadan-iftar-time">06:35 PM</span>
+              </div>
+            </div>
+
+            <div style="font-size: 12.5px; color: var(--text-muted); border-top: 1px solid var(--border-color); padding-top: 14px;">
+              <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                <span>🕌 Taraweeh Prayers:</span>
+                <strong style="color: var(--primary);" id="ramadan-taraweeh-time">08:45 PM (20 Raka'ahs)</strong>
+              </div>
+              <div style="display: flex; justify-content: space-between;">
+                <span>🌟 Upcoming Eid-ul-Fitr:</span>
+                <strong style="color: var(--secondary);">March 30, 2026 (approx)</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming community seminars block -->
+      <div style="border-top: 1px solid var(--border-color); margin-top: 50px; padding-top: 45px;">
+        <div style="text-align: center; margin-bottom: 35px;">
+          <span style="background-color: var(--primary-glow); color: var(--primary); padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Community Life</span>
+          <h2 style="font-family: var(--font-serif); font-size: 28px; color: var(--primary); margin-top: 10px; font-weight: 700;">Upcoming Programs & Seminars</h2>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px;" id="homepage-upcoming-events-grid">
+          <!-- Populated in Javascript from db listings -->
+          <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">Loading seminars...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: IMAGE & VIDEO GALLERY SECTION (Show Gallery AFTER announcements) -->
+  <section class="section-padding" id="homepage-gallery-section" style="background-color: var(--white); border-bottom: 1px solid var(--border-color); content-visibility: auto;">
+    <div class="container">
+      <div class="section-headline" style="text-align: center; margin-bottom: 45px;">
+        <span class="section-tag" style="background-color: var(--primary-glow); color: var(--primary); padding: 5px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; border: 1px solid rgba(10, 77, 52, 0.12);">Visual Chronicle</span>
+        <h2 class="section-title" style="font-family: var(--font-serif); font-size: 34px; color: var(--primary); margin-top: 14px; font-weight: 700;">Public Photo & Video Gallery</h2>
+        <p class="section-desc" style="color: var(--text-muted); max-width: 650px; margin: 12px auto 0; font-size: 15px; line-height: 1.6;">Browse photographs capturing geometric hand-painted domes, architectural pillars, Ramadan feasts, and historic seminars.</p>
+      </div>
+
+      <!-- Categories filtering line -->
+      <div class="gallery-toolbar" style="display: flex; justify-content: center; margin-bottom: 35px;">
+        <div class="filter-tabs" id="homepage-gallery-category-tabs" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="filter-btn active" data-category="All" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">All Assets</button>
+          <button class="filter-btn" data-category="Arch" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">Architecture</button>
+          <button class="filter-btn" data-category="Community" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">Community Life</button>
+          <button class="filter-btn" data-category="Exterior" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">Exterior</button>
+          <button class="filter-btn" data-category="Events" style="font-size: 13px; font-weight: 600; padding: 10px 18px; border-radius: 6px;">Events</button>
+        </div>
+      </div>
+
+      <!-- Modern Dynamic Grid Layout -->
+      <div class="gallery-grid" id="homepage-gallery-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px;">
+        <!-- Rendered dynamically of LocalStorage gallery items -->
+        <div style="text-align: center; color: var(--text-muted); padding: 40px; grid-column: 1/-1;">
+          <p style="font-size: 15px;">Loading gallery assets...</p>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 45px;">
+        <a href="/gallery.html" class="btn btn-primary" style="font-size: 14px; font-weight: 700; padding: 14px 34px; border-radius: 6px; letter-spacing: 0.5px;">
+          <span>Explore Public Photo Album</span> <i data-lucide="images"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: VIDEO LECTURES SYSTEM (Direct Uploaded Video Catalog with full-screen dynamic play triggers) -->
+  <section class="section-padding" id="homepage-videos-section" style="background-color: var(--bg-light); border-bottom: 1px solid var(--border-color); content-visibility: auto;">
+    <div class="container">
+      <div class="section-headline" style="text-align: center; margin-bottom: 45px;">
+        <span class="section-tag" style="background: rgba(10, 77, 52, 0.1); color: var(--primary); padding: 5px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+          🎥 Islamic Lectures & Sermons
+        </span>
+        <h2 class="section-title" style="font-family: var(--font-serif); font-size: 34px; color: var(--primary); margin-top: 14px; font-weight: 700;">Video Lectures & Khutbahs</h2>
+        <p class="section-desc" style="color: var(--text-muted); max-width: 650px; margin: 12px auto 0; font-size: 15px; line-height: 1.6;">Access our growing archive of theological discourse, weekly Friday sermons, and tafseer seminars delivered by resident scholars and visiting lecturers.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px;" id="homepage-videos-grid">
+        <!-- Rendered dynamically through js/app.js -->
+        <p style="text-align: center; color: var(--text-muted); grid-column: 1/-1;">Loading lecture videos...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: DONATION CAMPAIGN SECTION -->
+  <section class="section-padding" id="homepage-donation-section" style="background: linear-gradient(rgba(10, 77, 52, 0.96), rgba(6, 44, 30, 0.99)), url('https://images.unsplash.com/photo-1597935258735-e254c1839512?auto=format&fit=crop&q=80&w=1200') center/cover; color: var(--white); text-align: center; position: relative;">
+    <div class="container" style="max-width: 800px;">
+      <span style="color: var(--secondary-light); font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Invest in your Akhirah</span>
+      <h2 style="font-family: var(--font-serif); font-size: 32px; color: var(--white); margin: 12px 0 16px; font-weight: 700;">Support Al-Noor Grand Masjid</h2>
+      <p style="color: rgba(255,255,255,0.85); font-size: 15px; line-height: 1.6; margin-bottom: 30px;">
+        "The example of those who spend their wealth in the way of Allah is like a seed [of grain] which grows seven spikes; in each spike is a hundred grains." (Al-Baqarah 2:261)
+      </p>
+
+      <div style="background: rgba(255,255,255,0.08); padding: 30px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.15); backdrop-filter: blur(8px); text-align: left;">
+        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 15px; text-align: center; color: var(--secondary-light);">Choose Contribution Amount</h4>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px;">
+          <button class="btn btn-outline-white preset-donate-btn" style="border-color: rgba(255,255,255,0.3); color: #fff; padding: 10px;" data-amount="25">$25</button>
+          <button class="btn btn-outline-white preset-donate-btn" style="border-color: rgba(255,255,255,0.3); color: #fff; padding: 10px;" data-amount="50">$50</button>
+          <button class="btn btn-outline-white preset-donate-btn active" style="background: var(--secondary-light); color: var(--primary); font-weight:700; padding: 10px;" data-amount="100">$100</button>
+          <button class="btn btn-outline-white preset-donate-btn" style="border-color: rgba(255,255,255,0.3); color: #fff; padding: 10px;" data-amount="500">$500</button>
+        </div>
+
+        <form id="home-donation-quick-form" style="display:flex; flex-direction:column; gap:16px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label class="form-label" style="color:rgba(255,255,255,0.9); font-size:12px; margin-bottom:6px; display:block;">Full Name *</label>
+              <input type="text" id="home-donation-name" class="form-input" style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.15); color:#fff;" required placeholder="Your Name">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="color:rgba(255,255,255,0.9); font-size:12px; margin-bottom:6px; display:block;">Donation Category *</label>
+              <select id="home-donation-category" class="form-select" style="background:rgba(10,77,52,0.95); border:1px solid rgba(255,255,255,0.15); color:#fff; width:100%; height:45px; border-radius:6px; padding:0 12px;" required>
+                <option value="General Operations">Masjid General Operations</option>
+                <option value="Zakat Al-Maal">Zakat Fund</option>
+                <option value="Sadaqah Jariyah">Sadaqah Continuous Charity</option>
+                <option value="Education Support">Islamic Education & Seminary</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="color:rgba(255,255,255,0.9); font-size:12px; margin-bottom:6px; display:block;">Custom Donation Amount ($) *</label>
+            <input type="number" id="home-donation-amount-custom" class="form-input" style="background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.15); color:#fff;" min="1" required value="100">
+          </div>
+
+          <button class="btn btn-secondary w-full" id="home-quick-donate-submit-btn" style="padding: 14px; font-weight:700; background: var(--secondary); color:#fff; border-radius:6px; margin-top:8px;">
+            <i data-lucide="heart" style="width: 18px; height:20px; display:inline-block; vertical-align:middle; margin-right:6px;"></i> Complete Blessed Gift
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7: CONTACT & OFFICE SECTION -->
+  <section class="section-padding" id="homepage-contact-section" style="background-color: var(--white); border-bottom: 1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-headline" style="text-align: center; margin-bottom: 45px;">
+        <span class="section-tag" style="background: rgba(10, 77, 52, 0.1); color: var(--primary); padding: 5px 14px; border-radius: 50px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">
+          📍 Get In Touch
+        </span>
+        <h2 class="section-title" style="font-family: var(--font-serif); font-size: 34px; color: var(--primary); margin-top: 14px; font-weight: 700;">Connect With Our Center</h2>
+        <p class="section-desc" style="color: var(--text-muted); max-width: 650px; margin: 12px auto 0; font-size: 15px; line-height: 1.6;">Have questions about classes, marriages, funerals, or religious guidelines? Message our administrative desk directly.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;" class="contact-grid">
+        <!-- Address & Map details Card -->
+        <div style="background-color: var(--bg-light); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); display:flex; flex-direction:column; gap:20px;">
+          <h3 style="font-family:var(--font-serif); font-size:20px; color:var(--primary); font-weight:700; margin-bottom:5px;">Administrative Offices</h3>
+          <p style="color: var(--text-muted); font-size:14px; line-height:1.5;">We coordinate counseling sessions, youth classes, and financial distribution weekly.</p>
+          
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; background:rgba(10,77,52,0.1); color:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="map-pin"></i>
+            </div>
+            <div>
+              <h5 style="font-weight:600; font-size:15px; color:var(--primary); margin-bottom:4px;">Main Assembly Address</h5>
+              <p style="color: var(--text-muted); font-size:13.5px; line-height:1.43;">786 Olive Branch Boulevard, Crescent District, Capital City, CC 89502</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; background:rgba(10,77,52,0.1); color:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="phone"></i>
+            </div>
+            <div>
+              <h5 style="font-weight:600; font-size:15px; color:var(--primary); margin-bottom:4px;">Inquiry Hotlines</h5>
+              <p style="color: var(--text-muted); font-size:13.5px; line-height:1.43;">+1 (555) 786-1234 (Office desk)<br>+1 (555) 786-9999 (Counselor & Funeral Helpline)</p>
+            </div>
+          </div>
+
+          <div style="display:flex; gap:16px; align-items:flex-start;">
+            <div style="width:40px; height:40px; background:rgba(10,77,52,0.1); color:var(--primary); border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+              <i data-lucide="mail"></i>
+            </div>
+            <div>
+              <h5 style="font-weight:600; font-size:15px; color:var(--primary); margin-bottom:4px;">Electronic Mail</h5>
+              <p style="color: var(--text-muted); font-size:13.5px; line-height:1.43;">office@alnoormasjid.org (General queries)<br>zakat@alnoormasjid.org (Financial welfare helpdesk)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dynamic Quick Contact Form -->
+        <div style="background-color: var(--white); border: 1px solid var(--border-color); padding: 30px; border-radius: 12px; box-shadow: var(--shadow-sm);">
+          <h3 style="font-family:var(--font-serif); font-size:20px; color:var(--primary); font-weight:700; margin-bottom:20px;">Send a Direct Message</h3>
+          
+          <form id="home-contact-quick-form" style="display:flex; flex-direction:column; gap:16px;">
+            <div class="form-group">
+              <label for="quick-contact-name" class="form-label" style="font-size:12px;">Full Name *</label>
+              <input type="text" id="quick-contact-name" class="form-input" placeholder="e.g. Abdullah Ibn Al-Abbas" required>
+            </div>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label for="quick-contact-email" class="form-label" style="font-size:12px;">Email Address *</label>
+                <input type="email" id="quick-contact-email" class="form-input" placeholder="e.g. abdullah@mail.com" required>
+              </div>
+              <div class="form-group">
+                <label for="quick-contact-subject" class="form-label" style="font-size:12px;">Subject Category *</label>
+                <select id="quick-contact-subject" class="form-select" style="width:100%; height:45px; border-radius:6px; border:1px solid var(--border-color); padding:0 12px;" required>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Counseling Request">Spiritual Counseling</option>
+                  <option value="Sisters Program">Sisters' Programs</option>
+                  <option value="Welfare Support">Welfare Support (Zakat)</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="quick-contact-message" class="form-label" style="font-size:12px;">Message text *</label>
+              <textarea id="quick-contact-message" class="form-input" rows="4" placeholder="Your questions or comments..." required style="resize:vertical;"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-full" style="padding:14px; font-weight:700; justify-content:center;">
+              <i data-lucide="send"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Lecture Lightbox Overlay Component -->
+  <div class="dialog-overlay" id="homepage-video-lightbox" style="display:none; align-items:center; justify-content:center; padding: 20px;">
+    <div class="dialog-box" style="max-width: 800px; width:100%; background:#1e293b; color:#fff; border:none; padding:0; overflow:hidden; border-radius:12px; border:1px solid rgba(255,255,255,0.15);">
+      <div style="padding: 16px 24px; background:#0f172a; border-bottom:1px solid rgba(255,255,255,0.1); display:flex; justify-content:space-between; align-items:center;">
+        <h3 id="lightbox-video-title" style="font-family:var(--font-serif); font-size:18px; font-weight:700; color:#fff; margin:0;">Lecture Title</h3>
+        <button id="lightbox-close-btn" style="background:none; border:none; color:#94a3b8; cursor:pointer;" onmouseover="this.style.color='#fff';" onmouseout="this.style.color='#94a3b8';"><i data-lucide="x"></i></button>
+      </div>
+      <div style="position:relative; padding-bottom:56.25%; height:0; background:#000;">
+        <iframe id="lightbox-video-iframe" style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+      <div style="padding: 20px 24px; background:#0f172a;">
+        <span id="lightbox-video-speaker" style="color:var(--secondary-light); font-weight:700; font-size:13px; text-transform:uppercase; display:block; margin-bottom:6px;">Speaker</span>
+        <p id="lightbox-video-desc" style="color:#cbd5e1; font-size:14.5px; line-height:1.52; margin:0;">Detailed description...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Standard footer component -->
+  <footer class="footer">
+    <div class="container footer-top">
+      <div class="footer-column">
+        <h4 style="font-family: var(--font-serif); color: var(--secondary-light); margin-bottom: 12px; font-size:22px;">Al-Noor Masjid</h4>
+        <p style="margin-bottom: 15px; color: rgba(255,255,255,0.75);">A cornerstone of spiritual education, congregational worship, and benevolent community charity. Dedicated to fostering mutual trust, knowledge, and service.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-circle"><i data-lucide="facebook"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="twitter"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="youtube"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/about.html">About Masjid</a></li>
+          <li><a href="/articles.html">Islamic Library</a></li>
+          <li><a href="/gallery.html">Photo Gallery</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Weekly Programs</h4>
+        <ul>
+          <li><strong style="color: var(--secondary-light);">Quran Tafseer:</strong> Saturday after Asr</li>
+          <li><strong style="color: var(--secondary-light);">Sisters' Halaqah:</strong> Monday at 6:00 PM</li>
+          <li><strong style="color: var(--secondary-light);">Youth Mentorship:</strong> Friday at 7:30 PM</li>
+          <li><strong style="color: var(--secondary-light);">Tajweed Classes:</strong> Sunday morning</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Get in Touch</h4>
+        <p style="margin-bottom:12px;">📍 786 Olive Branch Boulevard, Crescent District, Capital City, CC 89502</p>
+        <p style="margin-bottom:12px;">📞 +1 (555) 786-1234</p>
+        <p style="margin-bottom:12px;">✉️ office@alnoormasjid.org</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Al-Noor Grand Masjid & Islamic Center. All rights reserved. Crafted as a pristine Islamic community management solution.</p>
+    </div>
+  </footer>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

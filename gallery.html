@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mosque Media Gallery - Al-Noor Grand Masjid & Islamic Center</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Loading ticker announcements -->
+  <div class="ticker-bar">
+    <div class="container">
+      <div class="ticker-wrapper">
+        <span class="ticker-title">Notice</span>
+        <span class="ticker-scroll" id="ticker-announcement-content">🌙 Loading ticket notice details...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive Glass navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/index.html" class="logo-link">
+        <i data-lucide="mosque" class="logo-icon"></i>
+        <div>
+          <h1 class="logo-text">Al-Noor</h1>
+          <span class="logo-sub">Grand Masjid</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/index.html" class="nav-link"><i data-lucide="home"></i><span>Home</span></a></li>
+          <li><a href="/about.html" class="nav-link"><i data-lucide="info"></i><span>About</span></a></li>
+          <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+          <li><a href="/gallery.html" class="nav-link active"><i data-lucide="image"></i><span>Gallery</span></a></li>
+          <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+          <li id="auth-nav-indicator"></li>
+          <li><a href="/donation.html" class="nav-link nav-btn-donate"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Nav Trigger -->
+      <button class="mobile-nav-toggle" id="mobile-toggle-btn">
+        <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Slide-out panel -->
+  <div class="mobile-drawer-backdrop" id="mobile-backdrop"></div>
+  <aside class="mobile-drawer" id="mobile-drawer-panel">
+    <div class="mobile-drawer-header">
+      <span class="logo-text" style="color:var(--primary); font-size:18px;">Navigation Menu</span>
+      <button class="mobile-drawer-close" id="mobile-close-btn">
+        <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="/index.html" class="nav-link"><i data-lucide="home"></i><span>Home</span></a></li>
+      <li><a href="/about.html" class="nav-link"><i data-lucide="info"></i><span>About</span></a></li>
+      <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+      <li><a href="/gallery.html" class="nav-link active"><i data-lucide="image"></i><span>Gallery</span></a></li>
+      <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+      <li><a href="/donation.html" class="nav-link nav-btn-donate" style="justify-content: center; margin-top: 15px;"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Title banner page header -->
+  <section style="background: linear-gradient(rgba(10, 77, 52, 0.85), rgba(6, 44, 30, 0.95)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200') center/cover; color: var(--white); padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h1 style="font-family: var(--font-serif); font-size:36px; margin-bottom:10px;">Mosque Media Gallery</h1>
+      <p style="color: var(--secondary-light); font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:1px;">Capturing Sacred Geometry, Community Gatherings, and Events</p>
+    </div>
+  </section>
+
+  <!-- Gallery Grid Frame -->
+  <main class="container section-padding">
+    
+    <!-- Filtering tab filters -->
+    <div class="filter-controls" style="justify-content: center; margin-bottom: 40px;">
+      <div class="filter-tabs" id="gallery-category-tabs">
+        <button class="filter-btn active" data-category="All">All Media</button>
+        <button class="filter-btn" data-category="Arch">Architecture</button>
+        <button class="filter-btn" data-category="Exterior">Exterior shot</button>
+        <button class="filter-btn" data-category="Community">Community</button>
+        <button class="filter-btn" data-category="Events">Events</button>
+      </div>
+    </div>
+
+    <!-- Media element grid populated dynamically by app.js -->
+    <div class="gallery-grid" id="gallery-main-cards-grid">
+       <p style="text-align:center; grid-column:1/-1; color:var(--text-muted);">Syncing visual media boards...</p>
+    </div>
+  </main>
+
+  <!-- Standard footer component -->
+  <footer class="footer">
+    <div class="container footer-top">
+      <div class="footer-column">
+        <h4 style="font-family: var(--font-serif); color: var(--secondary-light); margin-bottom: 12px; font-size: 22px;">Al-Noor Masjid</h4>
+        <p style="margin-bottom: 15px; color: rgba(255,255,255,0.75);">A cornerstone of spiritual education, congregational worship, and benevolent community charity. Dedicated to fostering mutual trust, knowledge, and service.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-circle"><i data-lucide="facebook"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="twitter"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="youtube"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/about.html">About Masjid</a></li>
+          <li><a href="/articles.html">Islamic Library</a></li>
+          <li><a href="/gallery.html">Photo Gallery</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Weekly Programs</h4>
+        <ul>
+          <li><strong style="color: var(--secondary-light);">Quran Tafseer:</strong> Saturday after Asr</li>
+          <li><strong style="color: var(--secondary-light);">Sisters' Halaqah:</strong> Monday at 6:00 PM</li>
+          <li><strong style="color: var(--secondary-light);">Youth Mentorship:</strong> Friday at 7:30 PM</li>
+          <li><strong style="color: var(--secondary-light);">Tajweed Classes:</strong> Sunday morning</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Get in Touch</h4>
+        <p style="margin-bottom:12px;">📍 786 Olive Branch Boulevard, Crescent District, Capital City, CC 89502</p>
+        <p style="margin-bottom:12px;">📞 +1 (555) 786-1234</p>
+        <p style="margin-bottom:12px;">✉️ office@alnoormasjid.org</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Al-Noor Grand Masjid & Islamic Center. All rights reserved. Crafted as a pristine Islamic community management solution.</p>
+    </div>
+  </footer>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

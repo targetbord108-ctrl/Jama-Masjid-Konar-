@@ -1,0 +1,337 @@
+/*
+ * Media and Social Settings Stylesheet
+ * Handcrafted Premium styles for drag and drop uploading, file previews, and social styling.
+ */
+
+.media-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.media-upload-card {
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.media-upload-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.upload-area {
+  border: 2px dashed rgba(22, 101, 52, 0.25);
+  background-color: var(--bg-light);
+  border-radius: 8px;
+  padding: 30px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.upload-area.dragover {
+  background-color: var(--primary-glow);
+  border-color: var(--primary);
+}
+
+.upload-area .upload-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--text-muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.upload-area:hover .upload-icon {
+  color: var(--primary);
+  transform: scale(1.08);
+}
+
+.preview-container {
+  width: 100%;
+  height: 180px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: #eaeaea;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-placeholder {
+  color: var(--text-muted);
+  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.preview-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: var(--text-main);
+  color: var(--white);
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Social Media Card Styles */
+.social-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.social-brand-card {
+  border-radius: 12px;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.social-brand-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+
+/* Platform Branding Accents */
+.social-brand-card.youtube::before { background: #ef4444; }
+.social-brand-card.instagram::before { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+.social-brand-card.whatsapp::before { background: #22c55e; }
+.social-brand-card.tiktok::before { background: #000000; }
+.social-brand-card.facebook::before { background: #1877f2; }
+.social-brand-card.telegram::before { background: #0ea5e9; }
+.social-brand-card.twitter::before { background: #1da1f2; }
+.social-brand-card.website::before { background: var(--secondary); }
+.social-brand-card.custom::before { background: var(--primary); }
+
+.social-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.social-logo-container {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-color);
+  background: var(--bg-light);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.social-logo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.social-logo-container i {
+  width: 18px;
+  height: 18px;
+}
+
+/* Custom Platform Colors on default icons */
+.youtube .social-logo-container { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.instagram .social-logo-container { background: rgba(236, 72, 153, 0.1); color: #db2777; }
+.whatsapp .social-logo-container { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+.tiktok .social-logo-container { background: rgba(0, 0, 0, 0.08); color: #000; }
+.facebook .social-logo-container { background: rgba(24, 119, 242, 0.1); color: #1877f2; }
+.telegram .social-logo-container { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+.twitter .social-logo-container { background: rgba(29, 161, 242, 0.1); color: #1da1f2; }
+.website .social-logo-container { background: rgba(184, 134, 11, 0.1); color: var(--secondary); }
+.custom .social-logo-container { background: rgba(10, 77, 52, 0.1); color: var(--primary); }
+
+.social-details {
+  flex-grow: 1;
+}
+
+.social-platform-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.social-link-display {
+  font-size: 12px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+
+.social-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 15px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
+}
+
+.btn-social-delete {
+  background: transparent;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-social-delete:hover {
+  background: rgba(153, 27, 27, 0.1);
+}
+
+.btn-social-edit {
+  background: transparent;
+  border: none;
+  color: var(--secondary);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-social-edit:hover {
+  background: rgba(184, 134, 11, 0.1);
+}
+
+/* Modal form style adjustments */
+.hidden {
+  display: none !important;
+}
+
+.modal-backdrop-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 77, 52, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal-backdrop-custom.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-box-custom {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  max-width: 500px;
+  width: 90%;
+  border: 1px solid var(--border-color);
+  transform: scale(0.9);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+}
+
+.modal-backdrop-custom.show .modal-box-custom {
+  transform: scale(1);
+}
+
+.modal-header-custom {
+  background: var(--primary);
+  color: var(--white);
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-title-custom {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--secondary-light);
+}
+
+.modal-close-custom {
+  background: transparent;
+  border: none;
+  color: var(--white);
+  opacity: 0.8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-close-custom:hover {
+  opacity: 1;
+}
+
+.modal-body-custom {
+  padding: 24px;
+}
+
+.modal-footer-custom {
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-light);
+  padding: 16px 24px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

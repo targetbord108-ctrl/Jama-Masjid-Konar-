@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Donation Center - Al-Noor Grand Masjid & Islamic Center</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Loading ticker announcements -->
+  <div class="ticker-bar">
+    <div class="container">
+      <div class="ticker-wrapper">
+        <span class="ticker-title">Notice</span>
+        <span class="ticker-scroll" id="ticker-announcement-content">🌙 Loading ticket notice details...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive Glass navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/index.html" class="logo-link">
+        <i data-lucide="mosque" class="logo-icon"></i>
+        <div>
+          <h1 class="logo-text">Al-Noor</h1>
+          <span class="logo-sub">Grand Masjid</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/index.html" class="nav-link"><i data-lucide="home"></i><span>Home</span></a></li>
+          <li><a href="/about.html" class="nav-link"><i data-lucide="info"></i><span>About</span></a></li>
+          <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+          <li><a href="/gallery.html" class="nav-link"><i data-lucide="image"></i><span>Gallery</span></a></li>
+          <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+          <li id="auth-nav-indicator"></li>
+          <li><a href="/donation.html" class="nav-link nav-btn-donate active"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Nav Trigger -->
+      <button class="mobile-nav-toggle" id="mobile-toggle-btn">
+        <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Slide-out panel -->
+  <div class="mobile-drawer-backdrop" id="mobile-backdrop"></div>
+  <aside class="mobile-drawer" id="mobile-drawer-panel">
+    <div class="mobile-drawer-header">
+      <span class="logo-text" style="color:var(--primary); font-size:18px;">Navigation Menu</span>
+      <button class="mobile-drawer-close" id="mobile-close-btn">
+        <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="/index.html" class="nav-link"><i data-lucide="home"></i><span>Home</span></a></li>
+      <li><a href="/about.html" class="nav-link"><i data-lucide="info"></i><span>About</span></a></li>
+      <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+      <li><a href="/gallery.html" class="nav-link"><i data-lucide="image"></i><span>Gallery</span></a></li>
+      <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+      <li><a href="/donation.html" class="nav-link nav-btn-donate active" style="justify-content: center; margin-top: 15px;"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Title banner page header -->
+  <section style="background: linear-gradient(rgba(10, 77, 52, 0.85), rgba(6, 44, 30, 0.95)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200') center/cover; color: var(--white); padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h1 style="font-family: var(--font-serif); font-size:36px; margin-bottom:10px;">Support Our Masjid</h1>
+      <p style="color: var(--secondary-light); font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:1px;">Every Contribution Builds a Brighter Spiritual Future</p>
+    </div>
+  </section>
+
+  <!-- Donation Main Body Layout -->
+  <main class="container section-padding">
+    <div class="donate-grid">
+      
+      <!-- Unified Donation Form -->
+      <div class="donation-box-card">
+        <h2 style="font-family: var(--font-serif); font-size:24px; color: var(--primary); margin-bottom:20px; font-weight:700;">Online Sadakah Portal</h2>
+        
+        <form id="checkout-donation-form">
+          <!-- Preset buttons -->
+          <span class="form-label">Select Contribution Amount ($ USD)</span>
+          <div class="preset-amounts">
+            <button type="button" class="preset-btn" value="25">$25</button>
+            <button type="button" class="preset-btn" value="50">$50</button>
+            <button type="button" class="preset-btn active" value="100">$100</button>
+            <button type="button" class="preset-btn" value="500">$500</button>
+          </div>
+
+          <!-- Custom amount -->
+          <div class="form-group">
+            <label for="donation-amount-custom" class="form-label">Or Custom Amount ($)</label>
+            <input type="number" id="donation-amount-custom" class="form-input" value="100" min="1" required placeholder="Enter custom USD value">
+          </div>
+
+          <!-- Select Fund -->
+          <div class="form-group">
+            <label for="donation-fund-select" class="form-label">Select Allocation Fund</label>
+            <select id="donation-fund-select" class="form-select">
+              <option value="General Sadaqah" selected>General Sadaqah (Mosque operations)</option>
+              <option value="Zakat Al-Maal">Zakat al-Maal (Needy families & poor)</option>
+              <option value="Islamic Education">Islamic Education & Scholarships</option>
+              <option value="Mosque Maintenance">Mosque Maintenance & Construction</option>
+            </select>
+          </div>
+
+          <!-- Donor details -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label for="donate-name" class="form-label">Your Name (Optional)</label>
+              <input type="text" id="donate-name" class="form-input" placeholder="e.g. Hajj Bilal">
+            </div>
+            <div class="form-group">
+              <label for="donate-email" class="form-label">Email Address (Optional)</label>
+              <input type="email" id="donate-email" class="form-input" placeholder="e.g. donor@faith.org">
+            </div>
+          </div>
+
+          <!-- Simulated card billing detail -->
+          <div style="border-top: 1px solid var(--border-color); padding-top:20px; margin-top:10px;">
+            <span class="form-label" style="display:flex; align-items:center; gap:6px;"><i data-lucide="shield-check" style="color:var(--success);"></i> Secure Card Processing Gate</span>
+            <div class="form-group" style="margin-top:12px;">
+              <input type="text" class="form-input" placeholder="💳 Card Number (Simulated Checkout)" style="letter-spacing:1px;" required value="4242 4242 4242 4242">
+            </div>
+            <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:16px;">
+              <input type="text" class="form-input" placeholder="Expiry MM/YY" required value="12/29">
+              <input type="text" class="form-input" placeholder="CVV" required value="786">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:24px; font-size:16px; font-weight:700;">
+            Authorize Single Checkout
+          </button>
+        </form>
+      </div>
+
+      <!-- Right Column showing Bank Coordinates & Simulated UPI QR -->
+      <div style="display:flex; flex-direction:column; gap:30px;">
+        <!-- Bank Transfer Details -->
+        <div class="bank-details-card">
+          <h3>Bank Account Coordinates</h3>
+          
+          <div class="bank-row">
+            <span class="bank-label">Bank Name</span>
+            <span class="bank-value">Amanah Islamic Trust Bank</span>
+          </div>
+          <p style="height:4px;"></p>
+          <div class="bank-row">
+            <span class="bank-label">Beneficiary</span>
+            <span class="bank-value">Al-Noor Grand Masjid & Islamic Center</span>
+          </div>
+          <p style="height:4px;"></p>
+          <div class="bank-row">
+            <span class="bank-label">Account Number</span>
+            <span class="bank-value" style="font-family: var(--font-heading);">00-786012-9243-7</span>
+          </div>
+          <p style="height:4px;"></p>
+          <div class="bank-row">
+            <span class="bank-label">SWIFT / Routing</span>
+            <span class="bank-value" style="font-family: var(--font-heading);">AMNHUS33CCX</span>
+          </div>
+        </div>
+
+        <!-- Instants via UPI QR mockup block -->
+        <div class="qr-code-box">
+          <div style="background-color: var(--primary-glow); padding: 12px; border-radius: 8px; display:inline-block; margin-bottom:12px;">
+            <!-- Simple simulated vector QR graphics using CSS boundaries -->
+            <div style="width:140px; height:140px; border:6px solid var(--primary); padding:10px; display:grid; grid-template-columns: repeat(4, 1fr); gap:6px; background:white; margin: 0 auto; border-radius:6px;">
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="border: 2px solid var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="border: 2px solid var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="border: 2px solid var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="border: 2px solid var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+              <div style="border: 2px solid var(--primary); border-radius:2px;"></div>
+              <div style="background-color: var(--primary); border-radius:2px;"></div>
+            </div>
+          </div>
+          <h4 class="qr-title">Instant Kiosk UPI Transfer</h4>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:4px; padding:0 16px;">
+            Scan code on your smart wallet to route funds instantly. Merchant ID: <strong>alnoortrust@upi</strong>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Standard footer component -->
+  <footer class="footer">
+    <div class="container footer-top">
+      <div class="footer-column">
+        <h4 style="font-family: var(--font-serif); color: var(--secondary-light); margin-bottom: 12px; font-size: 22px;">Al-Noor Masjid</h4>
+        <p style="margin-bottom: 15px; color: rgba(255,255,255,0.75);">A cornerstone of spiritual education, congregational worship, and benevolent community charity. Dedicated to fostering mutual trust, knowledge, and service.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-circle"><i data-lucide="facebook"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="twitter"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="youtube"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/about.html">About Masjid</a></li>
+          <li><a href="/articles.html">Islamic Library</a></li>
+          <li><a href="/gallery.html">Photo Gallery</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Weekly Programs</h4>
+        <ul>
+          <li><strong style="color: var(--secondary-light);">Quran Tafseer:</strong> Saturday after Asr</li>
+          <li><strong style="color: var(--secondary-light);">Sisters' Halaqah:</strong> Monday at 6:00 PM</li>
+          <li><strong style="color: var(--secondary-light);">Youth Mentorship:</strong> Friday at 7:30 PM</li>
+          <li><strong style="color: var(--secondary-light);">Tajweed Classes:</strong> Sunday morning</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Get in Touch</h4>
+        <p style="margin-bottom:12px;">📍 786 Olive Branch Boulevard, Crescent District, Capital City, CC 89502</p>
+        <p style="margin-bottom:12px;">📞 +1 (555) 786-1234</p>
+        <p style="margin-bottom:14px;">✉️ office@alnoormasjid.org</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Al-Noor Grand Masjid & Islamic Center. All rights reserved. Crafted as a pristine Islamic community management solution.</p>
+    </div>
+  </footer>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

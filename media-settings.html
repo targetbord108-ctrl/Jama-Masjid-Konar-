@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media & Social Settings - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/media-settings.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Inline Security Guard to prevent layout flashing for unauthorized users -->
+  <script>
+    (function() {
+      var sessionStr = sessionStorage.getItem("masjid_session");
+      if (!sessionStr) {
+        window.location.replace("/admin-login.html");
+        return;
+      }
+      try {
+        var session = JSON.parse(sessionStr);
+        if (session.role !== "Super Admin" && session.role !== "Admin") {
+          window.location.replace("/admin-login.html");
+        }
+      } catch (e) {
+        window.location.replace("/admin-login.html");
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link active">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">Media System & Social Channels</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Upload dynamic branding assets and administrate social connect buttons</span>
+        </div>
+        <div style="text-align:right;">
+          <a href="/index.html" class="btn btn-outline-primary btn-sm" style="border-width:1px; padding:6px 12px; font-size:12px;" target="_blank">
+            <i data-lucide="external-link"></i> Live Website
+          </a>
+        </div>
+      </header>
+
+      <div class="admin-body">
+
+        <!-- Banner Alerts / Dynamic Notification Header -->
+        <div id="admin-notification-toast" class="admin-alert-banner hidden" style="background-color: var(--primary); color: var(--secondary-light); font-weight: 600; padding: 12px 20px; border-radius: 8px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; border-left: 5px solid var(--secondary); box-shadow: var(--shadow-sm);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i data-lucide="check-circle" style="width: 20px; height: 20px;"></i>
+            <span id="admin-notification-message">Saved successfully!</span>
+          </div>
+          <button style="background: transparent; border: none; color: white; cursor: pointer; display: flex; align-items: center;" onclick="this.parentElement.classList.add('hidden')">
+            <i data-lucide="x" style="width: 16px; height: 16px;"></i>
+          </button>
+        </div>
+
+        <!-- Section 1: Branding Assets (Logo and Banner Uploads) -->
+        <h3 style="font-family: var(--font-serif); font-size: 18px; color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="brush" style="color: var(--secondary); width: 22px; height: 22px;"></i> Website Branding Media Manager
+        </h3>
+
+        <div class="media-cards-grid">
+          <!-- CARD A: LOGO UPLOAD -->
+          <div class="media-upload-card" id="logo-uploader-card">
+            <div style="margin-bottom: 16px;">
+              <span style="font-weight: 700; font-size: 14px; color: var(--text-main); display: block; margin-bottom: 2px;">Masjid Emblem Logo</span>
+              <span style="font-size: 11.5px; color: var(--text-muted);">Highly recommended to upload a square, high-contrast transparent PNG/JPG.</span>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-area" id="logo-dropzone">
+              <input type="file" id="logo-file-input" accept="image/*" style="display: none;">
+              <i data-lucide="upload-cloud" class="upload-icon"></i>
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-main);">Drag & Drop or Click to Upload</div>
+              <div style="font-size: 11px; color: var(--text-muted);">PNG, JPG up to 1MB</div>
+            </div>
+
+            <!-- Preview panel -->
+            <div class="preview-container" style="height: 120px; border-radius: 50%; width: 120px; margin: 0 auto 16px;">
+              <span class="preview-badge" style="border-radius: 20px; top: -5px; left: 24px;">Logo</span>
+              <img id="logo-preview-image" src="" class="preview-img" style="border-radius: 50%; opacity: 0;">
+              <div id="logo-placeholder" class="preview-placeholder" style="position: absolute; text-align: center;">
+                <i data-lucide="mosque" style="width: 36px; height: 36px; color: var(--secondary);"></i>
+                <span style="font-size: 11px;">Default Icon</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: auto;">
+              <button class="btn btn-outline" id="logo-delete-btn" style="flex: 1; border-color: var(--danger); color: var(--danger); padding: 8px 12px; font-size: 12px;" disabled>
+                <i data-lucide="trash-2"></i> Delete Custom Logo
+              </button>
+              <button class="btn btn-primary" id="logo-save-btn" style="flex: 1; padding: 8px 12px; font-size: 12px; background-color: var(--primary);">
+                <i data-lucide="save"></i> Save Logo
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD B: HERO BANNER UPLOAD -->
+          <div class="media-upload-card" id="banner-uploader-card">
+            <div style="margin-bottom: 16px;">
+              <span style="font-weight: 700; font-size: 14px; color: var(--text-main); display: block; margin-bottom: 2px;">Home Hero Banner Backdrop</span>
+              <span style="font-size: 11.5px; color: var(--text-muted);">Beautiful landscape wallpaper for top majestic sections.</span>
+            </div>
+
+            <!-- Upload Zone -->
+            <div class="upload-area" id="banner-dropzone">
+              <input type="file" id="banner-file-input" accept="image/*" style="display: none;">
+              <i data-lucide="upload-cloud" class="upload-icon"></i>
+              <div style="font-size: 13px; font-weight: 600; color: var(--text-main);">Drag & Drop or Click to Upload</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Landscape ratio up to 2MB</div>
+            </div>
+
+            <!-- Preview panel -->
+            <div class="preview-container" style="height: 120px;">
+              <span class="preview-badge">Hero Banner</span>
+              <img id="banner-preview-image" src="" class="preview-img" style="opacity: 0;">
+              <div id="banner-placeholder" class="preview-placeholder" style="position: absolute; text-align: center;">
+                <i data-lucide="image" style="width: 36px; height: 36px; color: var(--secondary);"></i>
+                <span style="font-size: 11px;">Default Mosque Interior Wallpaper</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: auto;">
+              <button class="btn btn-outline" id="banner-delete-btn" style="flex: 1; border-color: var(--danger); color: var(--danger); padding: 8px 12px; font-size: 12px;" disabled>
+                <i data-lucide="trash-2"></i> Reset to Default
+              </button>
+              <button class="btn btn-primary" id="banner-save-btn" style="flex: 1; padding: 8px 12px; font-size: 12px; background-color: var(--primary);">
+                <i data-lucide="save"></i> Save Banner Backdrop
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Social Media Connection Desk -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; margin-top: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+          <h3 style="font-family: var(--font-serif); font-size: 18px; color: var(--primary); display: flex; align-items: center; gap: 8px; margin: 0;">
+            <i data-lucide="share-2" style="color: var(--secondary); width: 22px; height: 22px;"></i> Social Media Settings & Channels
+          </h3>
+          <button class="btn btn-primary btn-sm" id="btn-add-social" style="background-color: var(--secondary);">
+            <i data-lucide="plus-circle"></i> Add Social Connection
+          </button>
+        </div>
+
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom: 20px;">
+          Configure connect buttons showing on the public pages. Only added networks appear publicly. If you delete a social platform, its icon will disappear from public footers instantly.
+        </p>
+
+        <!-- Dynamic Grid of Branded Actions -->
+        <div class="social-cards-grid" id="social-accounts-grid">
+          <!-- Dynamically populated via javascript -->
+          <div style="grid-column: 1/-1; text-align: center; padding: 40px; background: white; border: 1px solid var(--border-color); border-radius: 8px;" class="text-muted">
+            <i data-lucide="share-2" style="width: 48px; height: 48px; color: var(--border-color); margin-bottom: 12px;"></i>
+            <p style="font-weight: 500;">No social connections found</p>
+            <p style="font-size: 12px; max-width: 320px; margin: 6px auto 0;">Click the "Add Social Connection" button to link YouTube, WhatsApp, Facebook, Instagram, or Telegram channels.</p>
+          </div>
+        </div>
+
+        <!-- Section 3: Static Asset Image Uploader Helper -->
+        <h3 style="font-family: var(--font-serif); font-size: 18px; color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; margin-top: 40px;">
+          <i data-lucide="folder-open" style="color: var(--secondary); width: 22px; height: 22px;"></i> Media Bank Explorer (Base64 Library)
+        </h3>
+        
+        <div class="donation-box-card" style="padding: 24px;">
+          <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 24px;" class="media-bank-container">
+            <div>
+              <span style="font-weight: 700; font-size: 13.5px; color: var(--text-main); display: block; margin-bottom: 4px;">Upload & Encode Asset File</span>
+              <p style="font-size: 11.5px; color: var(--text-muted); margin-bottom: 15px;">Convert any raw device photograph into local Base64 code string to reference in articles or galleries easily without hotlinking.</p>
+              
+              <div class="upload-area" id="bank-dropzone" style="padding: 40px 16px;">
+                <input type="file" id="bank-file-input" accept="image/*" style="display: none;">
+                <i data-lucide="image" class="upload-icon"></i>
+                <div style="font-size: 12.5px; font-weight: 600; color: var(--text-main);">Upload Photograph</div>
+                <div style="font-size: 11px; color: var(--text-muted);">Standard image files</div>
+              </div>
+            </div>
+
+            <!-- Library Items List -->
+            <div style="border-left: 1px solid var(--border-color); padding-left: 24px;" class="media-library-panel">
+              <span style="font-weight: 700; font-size: 13.5px; color: var(--text-main); display: block; margin-bottom: 12px;">Asset Code Registry (<span id="bank-item-count">0</span> files)</span>
+              <div id="media-bank-grid" style="display: flex; flex-direction: column; gap: 10px; max-height: 240px; overflow-y: auto; padding-right: 5px;">
+                <!-- Dynamically Populated -->
+                <div style="text-align: center; color: var(--text-muted); padding: 30px; font-size: 12px;">
+                  Your uploaded custom files will be listed here.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- SOCIAL MEDIA ACCORDION MODAL -->
+  <div class="modal-backdrop-custom" id="social-modal">
+    <div class="modal-box-custom">
+      <div class="modal-header-custom">
+        <span class="modal-title-custom" id="social-modal-title">🔗 Add Social Connection Link</span>
+        <button class="modal-close-custom" id="social-modal-close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="modal-body-custom">
+        <form id="social-account-form" onsubmit="return false;">
+          <input type="hidden" id="form-social-id">
+          
+          <div class="form-group">
+            <label for="form-social-platform" class="form-label" style="font-weight: 600;">Platform Option *</label>
+            <select id="form-social-platform" class="form-select" required style="width: 100%; border: 1px solid var(--border-color); border-radius: 6px; padding: 10px; font-size: 13.5px; margin-top: 4px;">
+              <option value="youtube">YouTube</option>
+              <option value="instagram">Instagram</option>
+              <option value="whatsapp">WhatsApp</option>
+              <option value="tiktok">TikTok</option>
+              <option value="facebook">Facebook</option>
+              <option value="telegram">Telegram</option>
+              <option value="twitter">Twitter / X</option>
+              <option value="website">Masjid Website</option>
+              <option value="custom">Custom Other Platform</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <label for="form-social-title" class="form-label" style="font-weight: 600;">Platform Display Name</label>
+            <input type="text" id="form-social-title" class="form-input" placeholder="e.g. YouTube Channel, Join WhatsApp Group" style="margin-top: 4px; width: 100%;">
+          </div>
+
+          <div class="form-group" style="margin-top: 15px;">
+            <label for="form-social-url" class="form-label" style="font-weight: 600;">Direct Link URL *</label>
+            <input type="url" id="form-social-url" class="form-input" placeholder="https://..." required style="margin-top: 4px; width: 100%;">
+          </div>
+
+          <!-- Social Custom Icon/Logo upload -->
+          <div class="form-group" style="margin-top: 15px;">
+            <label class="form-label" style="font-weight: 600; display: block; margin-bottom: 2px;">Custom Platform Logo / Icon (Optional)</label>
+            <span style="font-size: 11px; color: var(--text-muted); display: block; margin-bottom: 8px;">Upload a circular logo. Otherwise, defaults to the beautiful official styled brand badge.</span>
+            
+            <div style="display: flex; align-items: center; gap: 15px;">
+              <div class="preview-container" style="width: 50px; height: 50px; border-radius: 50%; outline: 1px solid var(--border-color); flex-shrink: 0;">
+                <img id="form-social-icon-preview" src="" class="preview-img" style="border-radius: 50%; opacity: 0; width: 100%; height: 100%; object-fit: cover;">
+                <div id="form-social-icon-placeholder" style="position: absolute; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; font-size: 9px; color: var(--text-muted);">
+                  <i data-lucide="image" style="width: 16px; height: 16px;"></i>
+                </div>
+              </div>
+              <div style="flex-grow: 1;">
+                <button type="button" class="btn btn-outline btn-sm" id="social-icon-trigger" style="font-size: 12px; padding: 6px 12px; border-width: 1px;"><i data-lucide="upload"></i> Choose Circular Icon</button>
+                <input type="file" id="form-social-icon-input" accept="image/*" style="display: none;">
+                <button type="button" class="btn btn-outline btn-sm text-danger" id="social-icon-remove" style="font-size: 12px; padding: 6px 12px; margin-left: 5px; border-color: transparent;" disabled>Clear</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer-custom">
+        <button class="btn btn-outline" id="social-modal-cancel" style="padding: 8px 16px; font-size: 13px;">Cancel</button>
+        <button class="btn btn-primary" id="social-modal-save" style="padding: 8px 16px; font-size: 13px; background-color: var(--primary);">Save Connection Channel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Modal Overlay -->
+  <div class="modal-backdrop-custom" id="delete-modal" style="z-index: 1100;">
+    <div class="modal-box-custom" style="max-width: 400px; text-align: center;">
+      <div style="background: var(--danger); padding: 30px 24px; color: white;">
+        <i data-lucide="alert-triangle" style="width: 54px; height: 54px; margin-bottom: 12px;"></i>
+        <h4 style="font-family: var(--font-serif); font-size: 20px; font-weight: 700;">Are you sure?</h4>
+      </div>
+      <div style="padding: 24px; font-size: 14px; line-height: 1.5; color: var(--text-main);">
+        <p id="delete-modal-msg">Removing this connection link is instantaneous. The circular button will vanish from all public headers and footnotes instantly.</p>
+      </div>
+      <div class="modal-footer-custom" style="background: white; justify-content: center; gap: 15px;">
+        <button class="btn btn-outline" id="delete-modal-cancel" style="padding: 8px 16px;">Cancel</button>
+        <button class="btn btn-primary" id="delete-modal-confirm" style="padding: 8px 16px; background-color: var(--danger);">Yes, Delete Item</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Core Scripts -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/media-settings.js"></script>
+
+</body>
+</html>

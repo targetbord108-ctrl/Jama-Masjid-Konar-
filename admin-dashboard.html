@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Inline Security Guard to prevent layout flashing for unauthorized users -->
+  <script>
+    (function() {
+      var sessionStr = sessionStorage.getItem("masjid_session");
+      if (!sessionStr) {
+        window.location.replace("/admin-login.html");
+        return;
+      }
+      try {
+        var session = JSON.parse(sessionStr);
+        if (session.role !== "Super Admin" && session.role !== "Admin") {
+          window.location.replace("/admin-login.html");
+        }
+      } catch (e) {
+        window.location.replace("/admin-login.html");
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link active">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">System Status Overview</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Authorized administrative interface logs</span>
+        </div>
+        <div style="text-align:right;">
+          <a href="/index.html" class="btn btn-outline-primary btn-sm" style="border-width:1px; padding:6px 12px; font-size:12px;">
+            <i data-lucide="external-link"></i> Live Website
+          </a>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        
+        <!-- Metrics Grid (Total income, expenses, etc) -->
+        <section class="admin-metrics-grid">
+          
+          <div class="metric-card">
+            <div class="metric-icon-box income"><i data-lucide="trending-up"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Total Income / Collections</span>
+              <span class="metric-value" id="dash-total-income">$0.00</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box expense"><i data-lucide="trending-down"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Total Cash Expenditures</span>
+              <span class="metric-value" id="dash-total-expense">$0.00</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box saving"><i data-lucide="credit-card"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Current Balance / Savings</span>
+              <span class="metric-value" id="dash-total-savings">$0.00</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-icon-box donation"><i data-lucide="heart"></i></div>
+            <div class="metric-info">
+              <span class="metric-label">Generous Donations Subset</span>
+              <span class="metric-value" id="dash-total-donations">$0.00</span>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- Bento Layout showing Recent Logs and quick actions -->
+        <section class="bento-grid">
+          
+          <!-- Recent 6 cash transactions ledger card -->
+          <div class="admin-table-container">
+            <div class="table-header-bar">
+              <h3 style="font-family:var(--font-heading); font-size:16px; font-weight:700; color:var(--primary); display:flex; align-items:center; gap:8px;">
+                📝 Recent Ledger Postings
+              </h3>
+              <a href="/accounts.html" class="btn btn-primary btn-sm" style="font-size:11px; padding:4px 10px;">Full Ledger</a>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboard-recent-tx-table">
+                  <!-- Javascript populate -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Shortcuts list -->
+          <div class="donation-box-card" style="padding:24px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:var(--shadow-sm);">
+            <div>
+              <h3 style="font-family:var(--font-heading); color:var(--primary); font-weight:700; font-size:16px; margin-bottom:16px;">Quick Actions Directory</h3>
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                <a href="/accounts.html" style="text-decoration:none; background-color:var(--bg-light); padding:16px; border-radius:8px; border:1px solid var(--border-color); display:flex; align-items:center; gap:12px; transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary-light)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                   <div style="background-color: var(--primary-glow); padding:8px; border-radius:6px; color:var(--primary);"><i data-lucide="plus-circle" style="width:18px; height:18px;"></i></div>
+                   <div>
+                     <strong style="font-size:13px; color:var(--primary); display:block;">Record Cash Ledger Entry</strong>
+                     <span style="font-size:11px; color:var(--text-muted); display:block;">Income/Donation or Mosque Expenditures</span>
+                   </div>
+                </a>
+
+                <a href="/manage-articles.html" style="text-decoration:none; background-color:var(--bg-light); padding:16px; border-radius:8px; border:1px solid var(--border-color); display:flex; align-items:center; gap:12px; transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary-light)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                   <div style="background-color: var(--primary-glow); padding:8px; border-radius:6px; color:var(--primary);"><i data-lucide="book-open" style="width:18px; height:18px;"></i></div>
+                   <div>
+                     <strong style="font-size:13px; color:var(--primary); display:block;">Draft Islamic Article</strong>
+                     <span style="font-size:11px; color:var(--text-muted); display:block;">Compose and publish articles on knowledge library</span>
+                   </div>
+                </a>
+
+                <a href="/settings.html" style="text-decoration:none; background-color:var(--bg-light); padding:16px; border-radius:8px; border:1px solid var(--border-color); display:flex; align-items:center; gap:12px; transition:var(--transition);" onmouseover="this.style.borderColor='var(--primary-light)'" onmouseout="this.style.borderColor='var(--border-color)'">
+                   <div style="background-color: var(--primary-glow); padding:8px; border-radius:6px; color:var(--primary);"><i data-lucide="clock" style="width:18px; height:18px;"></i></div>
+                   <div>
+                     <strong style="font-size:13px; color:var(--primary); display:block;">Alter Iqamah Timings</strong>
+                     <span style="font-size:11px; color:var(--text-muted); display:block;">Instantly adjust namaz clocks on homepage</span>
+                   </div>
+                </a>
+              </div>
+            </div>
+            
+            <p style="font-size:11px; color:var(--text-muted); line-height:1.4; margin-top:20px; background-color: var(--primary-glow); padding:10px; border-radius:6px;">
+               💡 <strong>Admin Support Notice:</strong> Financial dashboards are refreshed in real-time inside LocalStorage records.
+            </p>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

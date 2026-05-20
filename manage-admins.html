@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Administrators - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link active">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">Admins & Board Members</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Role permissions mapping and staff account configurations</span>
+        </div>
+        <div style="text-align:right;">
+          <button class="btn btn-primary btn-sm" id="admins-add-user-btn">
+            <i data-lucide="user-plus"></i> Add Admin Account
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        
+        <!-- Guard Notice Overlay (Hidden by default, displayed via UI check if not Super Admin) -->
+        <div class="donation-box-card hidden" id="admins-unauthorized-guard" style="border-left: 5px solid var(--danger); padding:24px; margin-bottom: 24px;">
+          <h3 style="color:var(--danger); display:flex; align-items:center; gap:8px; font-family:var(--font-serif); font-size:18px;">
+            <i data-lucide="shield-alert"></i> Super Admin Restriction Required
+          </h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-top:8px; line-height:1.5;">
+            You are logged in as an Editor or Standard Admin. The admin management portal requires higher credential priority. Only the designated <strong>Super Admin</strong> can create new accounts, change passwords, or dissolve existing board access.
+          </p>
+        </div>
+
+        <div class="admin-grid-settings" style="grid-template-columns: 1.2fr 0.8fr; gap: 24px;" id="admins-main-interface-layout">
+          
+          <!-- Admin accounts list table container -->
+          <div class="admin-table-container" style="box-shadow:var(--shadow-sm);">
+            <div class="table-header-bar">
+              <h3 style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700;">
+                👥 Active Administrator Directory
+              </h3>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Full Name</th>
+                    <th>Permission Role</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admins-list-table-body">
+                  <!-- Dynamic render in admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Quick instructions / Role summary panel -->
+          <div class="donation-box-card" style="box-shadow:var(--shadow-sm); padding:24px;">
+            <h3 style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700; margin-bottom:12px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">
+              🛡️ Role Explanations
+            </h3>
+            
+            <ul style="display:flex; flex-direction:column; gap:16px; padding:0; list-style:none;">
+              <li style="font-size:13px; line-height:1.5;">
+                <strong style="color:var(--danger); display:block; margin-bottom:2px;">👨‍✈️ Super Admin</strong>
+                Ultimate control over all assets. Can modify Masjid profiles, adjust finances, edit prayer timings, post bulletins, write scholars' articles, and manage user accounts.
+              </li>
+              <li style="font-size:13px; line-height:1.5;">
+                <strong style="color:var(--primary); display:block; margin-bottom:2px;">👨‍💻 Standard Admin</strong>
+                Can manage general content (articles, announcements, gallery) and insert/modify ledger entries, but is restricted from editing or deleting other administrator accounts.
+              </li>
+              <li style="font-size:13px; line-height:1.5;">
+                <strong style="color:var(--secondary); display:block; margin-bottom:2px;">✍️ Editor</strong>
+                Can post announcements and publish scholastic articles. Restricted to read-only for financial books, and has absolutely zero control over security or timing grids.
+              </li>
+            </ul>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Dynamic New User Account Dialog Frame -->
+  <div class="dialog-overlay" id="admins-editor-modal">
+    <div class="dialog-box" style="max-width:460px;">
+      <div class="dialog-header">
+        <h3>Create Staff Account</h3>
+        <button class="dialog-close" id="admins-modal-close"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="dialog-body">
+        <!-- Username -->
+        <div class="form-group">
+          <label for="form-adm-username" class="form-label">Single-word Username *</label>
+          <input type="text" id="form-adm-username" class="form-input" required placeholder="e.g. imamazhari">
+        </div>
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="form-adm-name" class="form-label">Full Human Name *</label>
+          <input type="text" id="form-adm-name" class="form-input" required placeholder="e.g. Sheikh Muhammad Azhari">
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="form-adm-password" class="form-label">Temporary Access Password *</label>
+          <input type="password" id="form-adm-password" class="form-input" required placeholder="Enter key (min 6 chars)">
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+          <label for="form-adm-role" class="form-label">Permissions Clearance Level *</label>
+          <select id="form-adm-role" class="form-select">
+            <option value="Editor" selected>Editor (Scholastic Content Writer)</option>
+            <option value="Admin">Standard Admin (Officer/Treasurer)</option>
+            <option value="Super Admin">Super Admin (Executive Board)</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="dialog-footer">
+        <button class="btn btn-secondary btn-sm" id="admins-modal-cancel">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="admins-modal-save">Provision Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Changing Password Modal Dialog Frame -->
+  <div class="dialog-overlay" id="admins-password-modal">
+    <div class="dialog-box" style="max-width:400px;">
+      <div class="dialog-header">
+        <h3>Alter Master Password</h3>
+        <button class="dialog-close" id="password-modal-close"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="dialog-body">
+        <input type="hidden" id="password-target-username">
+        
+        <div class="form-group">
+          <label for="form-change-password" class="form-label">New Secure Password *</label>
+          <input type="password" id="form-change-password" class="form-input" required placeholder="Enter new access passkey...">
+        </div>
+      </div>
+
+      <div class="dialog-footer">
+        <button class="btn btn-secondary btn-sm" id="password-modal-cancel">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="password-modal-save">Update Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Admin platform script module -->
+  <script type="module" src="/js/admin.js"></script>
+
+</body>
+</html>

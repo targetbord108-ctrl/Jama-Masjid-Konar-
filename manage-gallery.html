@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Gallery - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link active">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">Islamic Center Media Gallery</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Manage public photographs and previous lecture videos</span>
+        </div>
+        <div style="text-align:right;">
+          <button class="btn btn-primary btn-sm" id="gallery-add-item-btn">
+            <i data-lucide="plus-circle"></i> Add Media Resource
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        
+        <div class="admin-grid-settings" style="grid-template-columns: 1fr; gap: 24px;">
+          
+          <!-- Gallery Media Records Table container -->
+          <div class="admin-table-container">
+            <div class="table-header-bar">
+              <h3 style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700;">
+                🖼️ Active Gallery Items
+              </h3>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <input type="text" id="gallery-search-bar" class="search-input text-sm" placeholder="Search by title..." style="padding: 6px 12px; font-size:13px; min-width:220px;">
+                <select id="gallery-type-filter" class="form-select text-xs" style="padding: 6px 12px; width:120px;">
+                  <option value="all">All Types</option>
+                  <option value="photo">Photos</option>
+                  <option value="video">Videos</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Thumbnail / Media Preview</th>
+                    <th>Resource Title</th>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Resource URL</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="gallery-list-table-body">
+                  <!-- Populated via Javascript renderGalleryList -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Dynamic New Gallery Media Dialog Frame -->
+  <div class="dialog-overlay" id="gallery-editor-modal">
+    <div class="dialog-box" style="max-width:540px;">
+      <div class="dialog-header">
+        <h3 id="gallery-modal-title">Upload Media Asset</h3>
+        <button class="dialog-close" id="gallery-modal-close"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="dialog-body">
+        <!-- Media Title -->
+        <div class="form-group">
+          <label for="form-gal-title" class="form-label">Asset Tag/Title *</label>
+          <input type="text" id="form-gal-title" class="form-input" required placeholder="e.g. Beautiful Prayer Hall Interior Dome">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <!-- Format Type -->
+          <div class="form-group">
+            <label for="form-gal-type" class="form-label">Media FormatType *</label>
+            <select id="form-gal-type" class="form-select">
+              <option value="photo" selected>Photograph Image</option>
+              <option value="video">Lecture / YouTube Video</option>
+            </select>
+          </div>
+          <!-- Category -->
+          <div class="form-group">
+            <label for="form-gal-category" class="form-label">Category Group *</label>
+            <select id="form-gal-category" class="form-select">
+              <option value="Arch">Mosque Architecture</option>
+              <option value="Exterior">Exterior & Grounds</option>
+              <option value="Community" selected>Community Events</option>
+              <option value="Events">Holiday Special Events</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Image File Uploader & Preview System -->
+        <div class="form-group" id="gallery-image-upload-wrapper">
+          <label class="form-label" style="font-weight: 600;">Photograph Device Upload *</label>
+          <div style="display: flex; gap: 15px; align-items: center; margin-top: 5px; margin-bottom: 12px;">
+            <div style="width: 80px; height: 50px; background: #eaeaea; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" id="gallery-form-preview-box">
+              <img id="form-gal-img-preview" src="" style="width:100%; height:100%; object-fit:cover; display: none;" />
+              <i data-lucide="image" id="form-gal-img-placeholder" style="width: 20px; height: 20px; color: var(--text-muted);"></i>
+            </div>
+            <div>
+              <button type="button" class="btn btn-outline btn-sm" id="btn-gal-file-chooser" style="font-size: 11.5px; padding: 4px 10px; border-width:1px;"><i data-lucide="upload"></i> Choose Image File</button>
+              <input type="file" id="form-gal-file-input" accept="image/*" style="display: none;">
+              <span style="display: block; font-size: 10px; color: var(--text-muted); margin-top: 2px;">JPG or PNG up to 1MB</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- URL Source Link (shown only for video lectures or optional overrides) -->
+        <div class="form-group" id="gallery-url-input-wrapper">
+          <label for="form-gal-url" class="form-label">Resource URL Link * (Unsplash image link or YouTube embed link)</label>
+          <input type="text" id="form-gal-url" class="form-input" required placeholder="https://..." value="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800">
+          <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:4px;">
+            For videos, please supply a standard YouTube embed link, e.g. <code>https://www.youtube.com/embed/dQw4w9WgXcQ</code>
+          </span>
+        </div>
+
+      </div>
+
+      <div class="dialog-footer">
+        <button class="btn btn-secondary btn-sm" id="gallery-modal-cancel">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="gallery-modal-save">Publish Asset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Admin platform script module -->
+  <script type="module" src="/js/admin.js"></script>
+
+</body>
+</html>

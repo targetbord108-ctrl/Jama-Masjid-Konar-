@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Masjid Management Platform",
+  "description": "A modern, professional, and responsive Islamic community and masjid management website, featuring prayer times, announcements, financial reporting, and admin controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

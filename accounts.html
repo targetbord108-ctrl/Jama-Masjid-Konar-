@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prophetic Accounts Ledger - Masjid Al-Noor</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Accounts Refined Stylesheet -->
+  <link rel="stylesheet" href="/accounts.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Inline Security Guard to prevent layout flashing for unauthorized users -->
+  <script>
+    (function() {
+      var sessionStr = sessionStorage.getItem("masjid_session");
+      if (!sessionStr) {
+        window.location.replace("/admin-login.html");
+        return;
+      }
+      try {
+        var session = JSON.parse(sessionStr);
+        if (session.role !== "Super Admin" && session.role !== "Admin") {
+          window.location.replace("/admin-login.html");
+        }
+      } catch (e) {
+        window.location.replace("/admin-login.html");
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar" id="dashboard-sidebar-panel">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link active">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Board</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">Masjid Financial Ledger Accounts</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Prophetic trust stewardship accounts (حساب کتاب) overview</span>
+        </div>
+        <div style="display:flex; gap:12px;">
+          <button class="btn btn-primary btn-sm" id="ledger-add-record-btn">
+            <i data-lucide="plus-circle"></i> Add Record
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+
+        <!-- Error Notification Toast Holder -->
+        <div id="accounts-notification-box" style="display:none; transition: all 0.3s ease; background-color: var(--primary-glow); border-left: 4px solid var(--primary); padding:16px; border-radius:8px; margin-bottom:20px;" class="flex items-center justify-between">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <i data-lucide="info" style="color:var(--primary); width:20px; height:20px;"></i>
+            <span id="notification-text" style="font-size:14px; font-weight:600; color:var(--text-main);">Notice: Operational database sync initialized successfully.</span>
+          </div>
+          <button style="background:none; border:none; cursor:pointer; color:var(--text-muted);" id="notification-close-btn">&times;</button>
+        </div>
+
+        <!-- STYLIZED COUNTER DASHBOARD CARDS -->
+        <div class="metrics-grid-custom">
+          
+          <div class="financial-card-custom inflow-card">
+            <div class="card-header-inner">
+              <span class="card-title-label">Total Inflow (Income)</span>
+              <div class="card-icon-wrapper">
+                <i data-lucide="trending-up"></i>
+              </div>
+            </div>
+            <div class="card-amount-value" id="card-total-income">$0.00</div>
+            <div class="card-sub-info">
+              <span style="color: var(--color-income); font-weight:700;">★ Cash Inflows</span>
+              <span>All collections ledger</span>
+            </div>
+          </div>
+
+          <div class="financial-card-custom outflow-card">
+            <div class="card-header-inner">
+              <span class="card-title-label">Total Outflow (Expense)</span>
+              <div class="card-icon-wrapper">
+                <i data-lucide="trending-down"></i>
+              </div>
+            </div>
+            <div class="card-amount-value" id="card-total-expense">$0.00</div>
+            <div class="card-sub-info">
+              <span style="color: var(--color-expense); font-weight:700;">★ Cash Expenditures</span>
+              <span>Auditable bills & stipends</span>
+            </div>
+          </div>
+
+          <div class="financial-card-custom savings-card">
+            <div class="card-header-inner">
+              <span class="card-title-label">Total Savings (All Time)</span>
+              <div class="card-icon-wrapper">
+                <i data-lucide="landmark"></i>
+              </div>
+            </div>
+            <div class="card-amount-value" id="card-total-savings">$0.00</div>
+            <div class="card-sub-info">
+              <span id="savings-trend-indicator" style="color: var(--color-income); font-weight:700;">▲ Net Growth</span>
+              <span>Net reserves remaining</span>
+            </div>
+          </div>
+
+          <div class="financial-card-custom prev-savings-card">
+            <div class="card-header-inner">
+              <span class="card-title-label" id="prev-savings-title">Prior Month Balance</span>
+              <div class="card-icon-wrapper">
+                <i data-lucide="hourglass"></i>
+              </div>
+            </div>
+            <div class="card-amount-value" id="card-prev-month-savings">$0.00</div>
+            <div class="card-sub-info">
+              <span style="color: var(--text-muted); font-weight:700;">★ Brought Forward</span>
+              <span>Balance prior to filter period</span>
+            </div>
+          </div>
+
+          <div class="financial-card-custom month-bal-card">
+            <div class="card-header-inner">
+              <span class="card-title-label" id="current-month-bal-title">Filter Period Balance</span>
+              <div class="card-icon-wrapper">
+                <i data-lucide="scale"></i>
+              </div>
+            </div>
+            <div class="card-amount-value" id="card-current-month-balance">$0.00</div>
+            <div class="card-sub-info">
+              <span style="color: var(--primary-light); font-weight:700;">★ Period Net</span>
+              <span>Remaining balance after filter</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- HIGH UTILITY Month/Year Selector, Search & Controls Panel -->
+        <div class="filter-controls-container">
+          <div class="controls-headline">
+            <i data-lucide="filter" style="width:18px; height:18px; color:var(--secondary);"></i>
+            <span>Interactive Filtering & Bookkeeping Audit Tools</span>
+          </div>
+
+          <div class="controls-form-grid">
+            
+            <div class="control-input-group">
+              <label class="control-input-label" for="filter-month">Selected Month</label>
+              <select class="control-select" id="filter-month">
+                <option value="all">All Months (Show Year Summary)</option>
+                <option value="01">January</option>
+                <option value="02">February</option>
+                <option value="03">March</option>
+                <option value="04">April</option>
+                <option value="05">May</option>
+                <option value="06">June</option>
+                <option value="07">July</option>
+                <option value="08">August</option>
+                <option value="09">September</option>
+                <option value="10">October</option>
+                <option value="11">November</option>
+                <option value="12">December</option>
+              </select>
+            </div>
+
+            <div class="control-input-group">
+              <label class="control-input-label" for="filter-year">Selected Year</label>
+              <select class="control-select" id="filter-year">
+                <option value="2025">2021</option>
+                <option value="2025">2022</option>
+                <option value="2025">2023</option>
+                <option value="2025">2024</option>
+                <option value="2021">2025</option>
+                <option value="2026" selected>2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+              </select>
+            </div>
+
+            <div class="control-input-group">
+              <label class="control-input-label" for="filter-category">Lead Category</label>
+              <select class="control-select" id="filter-category">
+                <option value="all">All Categories</option>
+                <option value="Donation">Donation (Friday/Sadaqah)</option>
+                <option value="Zakat">Zakat al-Maal</option>
+                <option value="Sadqa">Sadqa / Charity Box</option>
+                <option value="Masjid fund">Masjid fund</option>
+                <option value="Event collection">Event collection / Seminars</option>
+                <option value="Electricity">Electricity Expenses</option>
+                <option value="Water bill">Water / Utility Bill</option>
+                <option value="Salary">Staff Salary / Imam stipend</option>
+                <option value="Cleaning">Cleaning & Sanitary</option>
+                <option value="Construction">Construction expansion</option>
+                <option value="Maintenance">Maintenance & Repairs</option>
+              </select>
+            </div>
+
+            <div class="control-input-group">
+              <label class="control-input-label" for="filter-type">Account Type</label>
+              <select class="control-select" id="filter-type">
+                <option value="all">All Account Entries</option>
+                <option value="income">Inflow (Income)</option>
+                <option value="expense">Outflow (Expense)</option>
+              </select>
+            </div>
+
+          </div>
+
+          <div class="control-btn-group">
+            <button class="btn btn-outline-primary btn-sm" id="btn-reset-filters">
+              <i data-lucide="rotate-ccw"></i> Reset Filters
+            </button>
+            <button class="btn btn-secondary btn-sm" id="btn-download-monthly" style="background-color: var(--secondary);">
+              <i data-lucide="file-text"></i> Download Monthly DOCX Report
+            </button>
+            <button class="btn btn-secondary btn-sm" id="btn-download-yearly">
+              <i data-lucide="file-spreadsheet"></i> Download Yearly DOCX Report
+            </button>
+            <button class="btn btn-outline-primary btn-sm" id="btn-print-report">
+              <i data-lucide="printer"></i> Print Statement
+            </button>
+          </div>
+        </div>
+
+        <!-- VISUAL ANALYSIS CHARTS: MONTHLY BREAKDOWN BAR CHART GRAPH -->
+        <div class="analytics-visualization-card" id="yearly-analytics-visualization">
+          <div class="analytics-header">
+            <div>
+              <span class="analytics-title" id="analytics-chart-headline">Yearly Monthly Breakdown Visualization (2026)</span>
+              <p style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">Comparative graphical flow index of cash reserves</p>
+            </div>
+            <div class="chart-legend">
+              <div class="legend-item">
+                <div class="legend-color income-color"></div>
+                <span>Monthly Income</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color expense-color"></div>
+                <span>Monthly Expense</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ledger-chart-bar-container" id="bar-chart-visualization-rows">
+            <!-- Dynamic micro HTML bars injected here by script -->
+          </div>
+        </div>
+
+        <!-- SEARCH BAR FOR HISTORICAL REGISTERS ( हिसाब ) -->
+        <div class="admin-table-container">
+          <div class="table-header-bar" style="border-bottom:none; margin-bottom:5px;">
+            <div>
+              <h3 style="font-family:var(--font-serif); font-size:16px; color:var(--primary); font-weight:700; display:flex; align-items:center; gap:8px;">
+                <i data-lucide="database" style="color:var(--secondary); width:18px; height:18px;"></i>
+                <span>Historical Register Logs</span>
+              </h3>
+              <p style="font-size:11.5px; color:var(--text-muted);">Perform instant searches over all records</p>
+            </div>
+            
+            <div style="position: relative; display: flex; align-items: center; min-width: 320px;">
+              <input type="text" id="ledger-live-search" placeholder="Search हिसाब (description, details, amount, author)..." style="width: 100%; padding: 10px 16px; padding-left: 42px; border-radius: 8px; border: 1px solid var(--border-color); outline: none; font-size: 13.5px; background: var(--bg-light); box-sizing: border-box; font-family: var(--font-sans); color: var(--text-main);" onfocus="this.style.borderColor='var(--primary)'; this.style.backgroundColor='#ffffff'" onblur="this.style.borderColor='var(--border-color)'; this.style.backgroundColor='var(--bg-light)'">
+              <i data-lucide="search" style="position: absolute; left: 14px; width: 17px; height: 17px; color: var(--text-muted); pointer-events: none;"></i>
+            </div>
+          </div>
+
+          <!-- Responsive Data Table -->
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Posting Date</th>
+                  <th>Account Type</th>
+                  <th>Category</th>
+                  <th>Detailed Description</th>
+                  <th style="text-align: right;">Amount & Valuation</th>
+                  <th>Logged By</th>
+                  <th style="text-align: center; width:130px;">Posting Actions</th>
+                </tr>
+              </thead>
+              <tbody id="financial-ledger-table-data">
+                <!-- Javascript populated -->
+                <tr>
+                  <td colspan="7" class="text-muted text-center" style="padding:40px; text-align:center;">
+                    <div class="dot-pulse" style="display:inline-block; margin-right:8px;"></div>
+                    <span>Loading Islamic Financial Books from LocalStorage...</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+
+  <!-- Dynamic Add/Edit Ledger Record Modal Form Page Portal Popup -->
+  <div class="dialog-overlay" id="record-editor-modal">
+    <div class="dialog-box" style="max-width:540px;">
+      <div class="dialog-header" style="background-color: var(--primary-glow); border-bottom:1px solid var(--border-color);">
+        <h3 id="dialog-record-title" style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700; display:flex; align-items:center; gap:8px;">
+          <i data-lucide="circle-dollar-sign" style="color:var(--secondary);"></i>
+          <span>Save Ledger Posting Entry</span>
+        </h3>
+        <button class="dialog-close" id="record-editor-close"><i data-lucide="x"></i></button>
+      </div>
+      
+      <div class="dialog-body" style="padding: 24px;">
+        <!-- Hidden control inputs -->
+        <input type="hidden" id="form-record-mode" value="add">
+        <input type="hidden" id="form-record-id-ref" value="">
+
+        <!-- Date Entry -->
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="form-record-date" class="form-label" style="font-weight:700; font-size:12px; text-transform:uppercase; color:var(--text-muted);">Value Date</label>
+          <input type="date" id="form-record-date" class="form-input" style="padding: 10px 14px;" required>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+          <!-- Record Type -->
+          <div class="form-group">
+            <label for="form-record-type" class="form-label" style="font-weight:700; font-size:12px; text-transform:uppercase; color:var(--text-muted);">Entry Side (Type)</label>
+            <select id="form-record-type" class="form-select" style="padding: 10px 14px; background-color: var(--bg-light);">
+              <option value="income" selected>Debit Cash Side (Inflow / Income)</option>
+              <option value="expense">Credit Cash Side (Outflow / Expense)</option>
+            </select>
+          </div>
+          <!-- Category selection -->
+          <div class="form-group">
+            <label for="form-record-category" class="form-label" style="font-weight:700; font-size:12px; text-transform:uppercase; color:var(--text-muted);">Posting Category</label>
+            <select id="form-record-category" class="form-select" style="padding: 10px 14px; background-color: var(--bg-light);">
+              <!-- Populated in JS matching chosen type -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group" style="margin-bottom:16px;">
+          <label for="form-record-description" class="form-label" style="font-weight:700; font-size:12px; text-transform:uppercase; color:var(--text-muted);">Posting Memo Description</label>
+          <input type="text" id="form-record-description" class="form-input" placeholder="e.g., General donations matching Friday or electricity month of June..." style="padding: 10px 14px;" required>
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group" style="margin-bottom:6px;">
+          <label for="form-record-amount" class="form-label" style="font-weight:700; font-size:12px; text-transform:uppercase; color:var(--text-muted);">Cash Amount / Valuation ($ USD)</label>
+          <div style="position:relative; display:flex; align-items:center;">
+            <span style="position:absolute; left:14px; font-weight:700; color:var(--text-muted);">$</span>
+            <input type="number" step="0.01" min="0.01" id="form-record-amount" class="form-input" placeholder="0.00" style="padding: 10px 14px; padding-left:28px;" required>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="dialog-footer" style="background-color: var(--bg-light); border-top:1px solid var(--border-color); padding: 16px 24px; gap:12px;">
+        <button class="btn btn-secondary btn-sm" id="record-editor-cancel" style="background-color: var(--white); border: 1px solid var(--border-color); color: var(--text-main);">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="record-editor-save">Save Posting</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Dynamic Record View Details Modal Section -->
+  <div class="dialog-overlay" id="record-viewer-modal">
+    <div class="dialog-box" style="max-width:480px;">
+      <div class="dialog-header" style="background-color: var(--primary-glow); border-bottom:1px solid var(--border-color);">
+        <h3 style="font-family:var(--font-serif); font-size:16px; color:var(--primary); font-weight:700; display:flex; align-items:center; gap:8px;">
+          <i data-lucide="receipt"></i> Detail Transaction Memo
+        </h3>
+        <button class="dialog-close" id="record-viewer-close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="dialog-body" style="padding: 24px;">
+        <div style="text-align:center; margin-bottom:20px;">
+          <span id="viewer-badge" class="badge-financial-type" style="margin-bottom:8px;">INCOME</span>
+          <h2 id="viewer-amount" style="font-family: var(--font-heading); font-size:32px; font-weight:700; color:var(--text-main);">$0.00</h2>
+          <p id="viewer-desc" style="font-weight:600; color:var(--text-main); margin-top:4px;">No description provided</p>
+        </div>
+
+        <div style="border-top:1px dashed var(--border-color); padding-top:16px; display:flex; flex-direction:column; gap:12px; font-size:13.5px;">
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted); font-weight:500;">Posting Date ID:</span>
+            <strong id="viewer-date">2026-05-20</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted); font-weight:500;">Ledger Category:</span>
+            <strong id="viewer-category">Friday Donation</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted); font-weight:500;">Assigned Clerk / Supervisor:</span>
+            <strong id="viewer-editor">Yousef Al-Masri</strong>
+          </div>
+          <div style="display:flex; justify-content:space-between;">
+            <span style="color:var(--text-muted); font-weight:500;">Valuation State:</span>
+            <strong style="color:var(--success);">★ Verified Audit Record</strong>
+          </div>
+        </div>
+      </div>
+      <div class="dialog-footer">
+        <button class="btn btn-primary btn-sm" id="btn-viewer-close" style="width:100%;">Acknowledge & Close</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- HIDDEN EXQUISITE ISLAMIC-STYLED PRINT READY COMPONENT -->
+  <div id="printable-report-card">
+    <div class="print-header">
+      <div class="print-masjid-title">Al-Noor Grand Masjid & Islamic Center</div>
+      <div class="print-subtitle">Official Administrative Ledger Statement of Accounts</div>
+      <p style="font-size:11px; margin-top:6px; font-style:italic;">"And establish weight in justice and do not make deficient the balance." [Surah Ar-Rahman, 55:9]</p>
+    </div>
+
+    <div class="print-meta-grid">
+      <div>
+        <p><strong>Report Entity:</strong> Board of Trustees Ledger</p>
+        <p><strong>Reporting Filter Interval:</strong> <span id="print-filtered-interval">All Historical Records</span></p>
+        <p><strong>Clerk Authorization:</strong> Active Signatories System Log</p>
+      </div>
+      <div style="text-align: right;">
+        <p><strong>Audit Date Issued:</strong> <span id="print-date-timestamp">2026-05-20</span></p>
+        <p><strong>Database Source:</strong> Certified Secure Local Ledger</p>
+        <p><strong>Audit Register ID:</strong> TXM-ALNOOR-2026</p>
+      </div>
+    </div>
+
+    <div class="print-metrics-summary">
+      <div class="print-metric-box">
+        <div class="print-metric-lbl">Total Period Collections (Income)</div>
+        <div class="print-metric-val" id="print-total-income">$0.00</div>
+      </div>
+      <div class="print-metric-box">
+        <div class="print-metric-lbl">Total Period Expenditures (Expense)</div>
+        <div class="print-metric-val" id="print-total-expense">$0.00</div>
+      </div>
+      <div class="print-metric-box">
+        <div class="print-metric-lbl">Total Cash Reserves (Savings)</div>
+        <div class="print-metric-val" id="print-total-savings">$0.00</div>
+      </div>
+    </div>
+
+    <h4 style="margin-bottom:10px; border-bottom:1px solid #000; padding-bottom:5px; text-transform:uppercase; font-size:13px;">Itemized Posting Register Lines</h4>
+    <table class="print-table">
+      <thead>
+        <tr>
+          <th>Posting Value Date</th>
+          <th>Account Type</th>
+          <th>Account Category</th>
+          <th>Posting Memo (Description)</th>
+          <th style="text-align: right; width:120px;">Amount ($ USD)</th>
+          <th>Signing Authority Clerk</th>
+        </tr>
+      </thead>
+      <tbody id="print-table-ledger-body">
+        <!-- Javascript populated dynamically prior to print trigger -->
+      </tbody>
+    </table>
+
+    <div class="print-sign-area-container">
+      <div class="print-sign-box">
+        <p>Hazrat Imam Al-Noor Masjid<br>(Spiritual Custodian Audit)</p>
+      </div>
+      <div class="print-sign-box">
+        <p>Finance Trustee Chairman<br>(Fiduciary Signatory Board)</p>
+      </div>
+      <div class="print-sign-box">
+        <p>General Secretary Board<br>(Secretariat Seal Registry)</p>
+      </div>
+    </div>
+
+    <div class="print-footer-notice">
+      <p>This document constitutes a certified audit ledger report generated by the Al-Noor Mosque Management Platform. Absolute accuracy and truthfulness in weight is a Prophetic command. Information is securely stored locally and managed with highest integrity standards.</p>
+    </div>
+  </div>
+
+
+  <!-- Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/accounts.js"></script>
+</body>
+</html>

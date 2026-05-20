@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Content - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link active">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">Publish Content & Events</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Manage public library database, notice ticker, and announcements</span>
+        </div>
+        <div style="text-align:right;">
+          <button class="btn btn-primary btn-sm" id="article-add-btn">
+            <i data-lucide="plus-circle"></i> Draft Article
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        
+        <!-- Multi-Section Layout (Articles bento list on upper row, Notice panels below) -->
+        <div style="display:flex; flex-direction:column; gap:40px;">
+          
+          <!-- Section 1: Islamic Knowledge Articles Register -->
+          <div class="admin-table-container">
+            <div class="table-header-bar">
+              <h3 style="font-family:var(--font-heading); font-size:16px; font-weight:700; color:var(--primary); display:flex; align-items:center; gap:8px;">
+                📚 Active Scholarly Articles
+              </h3>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Article / Cover</th>
+                    <th>Category</th>
+                    <th>Scholarly Author</th>
+                    <th>Published Date</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="articles-list-table-body">
+                  <!-- populated in Javascript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 2: Dual Grid for Weekly Notices & Dynamic Programs -->
+          <div class="bento-grid">
+            
+            <!-- Announcements Box -->
+            <div class="donation-box-card" style="box-shadow:var(--shadow-sm); padding:24px;">
+              <h3 style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700; margin-bottom:16px;">
+                📢 Notice Board Announcements
+              </h3>
+              
+              <!-- Quick publish announcement form inline -->
+              <form id="add-announcement-form" style="border-bottom:1px solid var(--border-color); padding-bottom:20px; margin-bottom:20px;">
+                <div style="display:grid; grid-template-columns:1.2fr 0.8fr; gap:12px;">
+                  <div class="form-group" style="margin-bottom:12px;">
+                    <input type="text" id="ann-title-input" class="form-input text-xs" style="padding:8px 12px;" required placeholder="Title (e.g. Arabic Tajweed Study)">
+                  </div>
+                  <div class="form-group" style="margin-bottom:12px;">
+                    <select id="ann-category-input" class="form-select text-xs" style="padding:8px 12px;">
+                      <option value="Program">Program Info</option>
+                      <option value="Education">Education Notice</option>
+                      <option value="Community">Community Bulletin</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom:12px;">
+                  <textarea id="ann-content-input" class="form-textarea" style="min-height:70px; padding:8px 12px; font-size:13px;" required placeholder="Brief bulletin contents..."></textarea>
+                </div>
+
+                <div class="form-group" style="display:flex; align-items:center; gap:8px; margin-bottom:12px;">
+                  <input type="checkbox" id="ann-important-input" style="width:16px; height:16px; cursor:pointer;">
+                  <label for="ann-important-input" style="font-size:12px; font-weight:600; color:var(--danger); cursor:pointer;">⚠️ Mark as Important (Includes caution emoji on public site)</label>
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary btn-sm" style="width:100%; justify-content:center; padding:8px;">
+                  Publish Bulletin Ticket
+                </button>
+              </form>
+
+              <!-- Notice bulletin logs table list -->
+              <div class="table-responsive" style="max-height:220px; overflow-y:auto;">
+                <table class="admin-table text-xs">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Category</th>
+                      <th>Caution</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="announcements-list-table-body">
+                    <!-- Populated in JS database -->
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+            <!-- Scheduled Events Box -->
+            <div class="donation-box-card" style="box-shadow:var(--shadow-sm); padding:24px;">
+              <h3 style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700; margin-bottom:16px;">
+                📅 Community Seminars & Programs
+              </h3>
+
+              <!-- Event publisher inline form -->
+              <form id="add-event-form" style="border-bottom:1px solid var(--border-color); padding-bottom:20px; margin-bottom:20px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:8px;">
+                  <input type="text" id="evt-title-input" class="form-input text-xs" style="padding:8px 12px;" required placeholder="Program/Event Title">
+                  <input type="date" id="evt-date-input" class="form-input text-xs" style="padding:8px 12px;" required>
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:8px;">
+                  <input type="text" id="evt-time-input" class="form-input text-xs" style="padding:8px 12px;" required placeholder="Hours (e.g. 5:00 - 7:00 PM)">
+                  <input type="text" id="evt-speaker-input" class="form-input text-xs" style="padding:8px 12px;" placeholder="Khateeb/Speaker">
+                </div>
+
+                <div class="form-group" style="margin-bottom:8px;">
+                  <input type="text" id="evt-location-input" class="form-input text-xs" style="padding:8px 12px;" placeholder="Location (e.g. Main Lecture Hall)" value="Main Prayer Sanctuary">
+                </div>
+
+                <div class="form-group" style="margin-bottom:12px;">
+                  <input type="text" id="evt-desc-input" class="form-input text-xs" style="padding:8px 12px;" placeholder="Short descriptive summary tagline...">
+                </div>
+
+                <button type="submit" class="btn btn-outline-primary btn-sm" style="width:100%; justify-content:center; padding:8px;">
+                  Schedule Community Program
+                </button>
+              </form>
+
+              <!-- Events scroll ledger list -->
+              <div class="table-responsive" style="max-height:175px; overflow-y:auto;">
+                <table class="admin-table text-xs">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Date</th>
+                      <th>Speaker</th>
+                      <th>Location</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody id="events-list-table-body">
+                    <!-- Javascript references populated -->
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Dynamic New Article Creation Dialog Frame -->
+  <div class="dialog-overlay" id="article-editor-modal">
+    <div class="dialog-box" style="max-width:640px;">
+      <div class="dialog-header">
+        <h3>Draft New Islamic Article</h3>
+        <button class="dialog-close" id="article-editor-close"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="dialog-body" style="overflow-y:auto; max-height:70vh;">
+        <!-- Article Title -->
+        <div class="form-group">
+          <label for="form-art-title" class="form-label">Article Title *</label>
+          <input type="text" id="form-art-title" class="form-input" required placeholder="e.g. Elevating Prophetic Values inside Modern Families">
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+          <!-- Category dropdown -->
+          <div class="form-group">
+            <label for="form-art-category" class="form-label">Article Category *</label>
+            <select id="form-art-category" class="form-select">
+              <option value="History">Islamic History & Science</option>
+              <option value="Spirituality" selected>Spirituality & Devotion</option>
+              <option value="Community">Community Relations</option>
+            </select>
+          </div>
+          <!-- Cover photo file uploader -->
+          <div class="form-group" style="display: flex; flex-direction: column; justify-content: flex-end;">
+            <label class="form-label" style="font-weight: 600; margin-bottom: 4px;">Article Cover Photograph *</label>
+            <div style="display: flex; gap: 12px; align-items: center;">
+              <div style="width: 60px; height: 38px; background: #eaeaea; border-radius: 4px; overflow: hidden; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; flex-shrink: 0;" id="article-form-preview-box">
+                <img id="form-art-img-preview" src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800" style="width:100%; height:100%; object-fit:cover;" />
+                <i data-lucide="image" id="form-art-img-placeholder" style="width: 14px; height: 14px; color: var(--text-muted); display: none;"></i>
+              </div>
+              <div style="flex-grow: 1; display: flex; gap: 6px;">
+                <button type="button" class="btn btn-outline btn-sm" id="btn-art-file-chooser" style="font-size: 11px; padding: 4px 8px; border-width: 1px;"><i data-lucide="upload" style="width:12px; height:12px;"></i> Upload Device File</button>
+                <input type="file" id="form-art-file-input" accept="image/*" style="display: none;">
+                <input type="hidden" id="form-art-image" value="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=800">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Excerpt summary -->
+        <div class="form-group">
+          <label for="form-art-excerpt" class="form-label">Search Excerpt Summary * (1-2 sentences displayed on card grid)</label>
+          <input type="text" id="form-art-excerpt" class="form-input" required placeholder="Brief introductory hook for the cards layout..." maxlength="180">
+        </div>
+
+        <!-- Detailed draft pane -->
+        <div class="form-group">
+          <label for="form-art-content" class="form-label">Article Draft Body Text * (Double spacing creates paragraphs)</label>
+          <textarea id="form-art-content" class="form-textarea" style="min-height:180px;" required placeholder="Start typing rich text here..."></textarea>
+        </div>
+
+      </div>
+
+      <div class="dialog-footer">
+        <button class="btn btn-secondary btn-sm" id="article-editor-cancel">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="article-editor-save">Publish Article</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>

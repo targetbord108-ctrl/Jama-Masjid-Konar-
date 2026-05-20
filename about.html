@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us - Al-Noor Grand Masjid & Islamic Center</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Loading ticker announcements -->
+  <div class="ticker-bar">
+    <div class="container">
+      <div class="ticker-wrapper">
+        <span class="ticker-title">Notice</span>
+        <span class="ticker-scroll" id="ticker-announcement-content">🌙 Loading ticker notice details...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive Glass navbar -->
+  <header class="navbar">
+    <div class="container navbar-container">
+      <a href="/index.html" class="logo-link">
+        <i data-lucide="mosque" class="logo-icon"></i>
+        <div>
+          <h1 class="logo-text">Al-Noor</h1>
+          <span class="logo-sub">Grand Masjid</span>
+        </div>
+      </a>
+
+      <!-- Desktop Links -->
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="/index.html" class="nav-link"><i data-lucide="home"></i><span>Home</span></a></li>
+          <li><a href="/about.html" class="nav-link active"><i data-lucide="info"></i><span>About</span></a></li>
+          <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+          <li><a href="/gallery.html" class="nav-link"><i data-lucide="image"></i><span>Gallery</span></a></li>
+          <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+          <li id="auth-nav-indicator"></li>
+          <li><a href="/donation.html" class="nav-link nav-btn-donate"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Nav Trigger -->
+      <button class="mobile-nav-toggle" id="mobile-toggle-btn">
+        <i data-lucide="menu" style="width: 28px; height: 28px;"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Nav Slide-out panel -->
+  <div class="mobile-drawer-backdrop" id="mobile-backdrop"></div>
+  <aside class="mobile-drawer" id="mobile-drawer-panel">
+    <div class="mobile-drawer-header">
+      <span class="logo-text" style="color:var(--primary); font-size:18px;">Navigation Menu</span>
+      <button class="mobile-drawer-close" id="mobile-close-btn">
+        <i data-lucide="x" style="width: 24px; height: 24px;"></i>
+      </button>
+    </div>
+    <ul class="mobile-nav-list">
+      <li><a href="/index.html" class="nav-link"><i data-lucide="home"></i><span>Home</span></a></li>
+      <li><a href="/about.html" class="nav-link active"><i data-lucide="info"></i><span>About</span></a></li>
+      <li><a href="/articles.html" class="nav-link"><i data-lucide="file-text"></i><span>Articles</span></a></li>
+      <li><a href="/gallery.html" class="nav-link"><i data-lucide="image"></i><span>Gallery</span></a></li>
+      <li><a href="/contact.html" class="nav-link"><i data-lucide="mail"></i><span>Contact</span></a></li>
+      <li><a href="/donation.html" class="nav-link nav-btn-donate" style="justify-content: center; margin-top: 15px;"><i data-lucide="heart"></i><span>Donate Now</span></a></li>
+    </ul>
+  </aside>
+
+  <!-- Title banner page header -->
+  <section style="background: linear-gradient(rgba(10, 77, 52, 0.85), rgba(6, 44, 30, 0.95)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200') center/cover; color: var(--white); padding: 60px 0; text-align: center;">
+    <div class="container">
+      <h1 style="font-family: var(--font-serif); font-size:36px; margin-bottom:10px;">About Our Masjid</h1>
+      <p style="color: var(--secondary-light); font-weight:600; text-transform:uppercase; font-size:12px; letter-spacing:1px;">Nurturing Faith, Knowledge, and Service Since 1992</p>
+    </div>
+  </section>
+
+  <!-- Core History Grid -->
+  <section class="section-padding container">
+    <div class="contact-grid">
+      <!-- Right history block -->
+      <div>
+        <h2 style="font-family: var(--font-serif); font-size:28px; color: var(--primary); margin-bottom:20px; font-weight:700;">Our Foundation & Mission</h2>
+        <p style="font-size:15px; color-contrast: 4.5; margin-bottom:16px;">
+          Established in 1992 (1412 AH) under the supervision of local Islamic scholars, Al-Noor Grand Masjid & Islamic Center has blossomed from a humble storefront prayer room to a sprawling, majestic multi-wing complex serving thousands of Muslim families weekly.
+        </p>
+        <p style="font-size:15px; color-contrast: 4.5; margin-bottom:16px;">
+          We operate on the balanced principles of the Quran and authentic Prophetic Sunnah, stressing moderate understanding, absolute moral excellence, scientific awareness, and constructive contribution to the wider modern human community.
+        </p>
+        
+        <h3 style="font-family: var(--font-serif); font-size:20px; color:var(--primary); font-weight:700; margin-top:30px; margin-bottom:12px;">Core Services Available</h3>
+        <ul style="list-style: none; display:grid; grid-template-columns:1fr 1fr; gap:12px; font-size:14px; font-weight:500;">
+          <li style="display:flex; gap:8px; align-items:center;"><span style="color: var(--secondary-light);">✔</span> Daily Congregational Prayers</li>
+          <li style="display:flex; gap:8px; align-items:center;"><span style="color: var(--secondary-light);">✔</span> Islamic Marriage Contracts (Nikah)</li>
+          <li style="display:flex; gap:8px; align-items:center;"><span style="color: var(--secondary-light);">✔</span> Weekend Quranic Academy</li>
+          <li style="display:flex; gap:8px; align-items:center;"><span style="color: var(--secondary-light);">✔</span> Funeral & Bereavement Support</li>
+          <li style="display:flex; gap:8px; align-items:center;"><span style="color: var(--secondary-light);">✔</span> Financial Zakat Distribution</li>
+          <li style="display:flex; gap:8px; align-items:center;"><span style="color: var(--secondary-light);">✔</span> Interfaith Seminars</li>
+        </ul>
+      </div>
+
+      <!-- Quick profile widget side column -->
+      <div class="bank-details-card" style="align-self: flex-start;" id="about-masjid-details-card">
+         <!-- Populated dynamically from app.js settings database -->
+         <p style="text-align:center; padding: 40px 0;">Loading profile directory...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Leadership Block -->
+  <section class="section-padding" style="background-color: var(--bg-light); border-top:1px solid var(--border-color); border-bottom:1px solid var(--border-color);">
+    <div class="container">
+      <div class="section-headline">
+        <span class="section-tag">Masjid Leadership</span>
+        <h2 class="section-title">Imams & Administration Board</h2>
+        <p class="section-desc">Consult with our qualified, resident academic advisors and professional community service coordinators.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:30px;">
+        <!-- Imam Card -->
+        <div style="background:var(--white); border: 1px solid var(--border-color); border-radius:12px; overflow:hidden; text-align:center; box-shadow:var(--shadow-sm); padding:30px 24px;">
+          <div style="width:120px; height:120px; border-radius:50%; background-color: var(--primary-glow); color:var(--primary); font-size: 40px; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px; font-weight:700; border:3px solid var(--secondary-light);">
+             SMA
+          </div>
+          <h3 style="font-family:var(--font-serif); font-size:20px; color: var(--primary); font-weight:700; margin-bottom:4px;">Sheikh Muhammad Al-Azhari</h3>
+          <p style="font-size:12px; text-transform:uppercase; font-weight:700; color:var(--secondary); letter-spacing:0.5px; margin-bottom:12px;">Resident Head Imam</p>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Graduate of Al-Azhar University, Faculty of Islamic Theology. Oversees religious rulings, spiritual counsel, and central khutbah lectures.</p>
+        </div>
+
+        <!-- Board Member Card -->
+        <div style="background:var(--white); border: 1px solid var(--border-color); border-radius:12px; overflow:hidden; text-align:center; box-shadow:var(--shadow-sm); padding:30px 24px;">
+          <div style="width:120px; height:120px; border-radius:50%; background-color: var(--primary-glow); color:var(--primary); font-size: 40px; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px; font-weight:700; border:3px solid var(--secondary-light);">
+             HAK
+          </div>
+          <h3 style="font-family:var(--font-serif); font-size:20px; color: var(--primary); font-weight:700; margin-bottom:4px;">Hajj Ahmad Khan</h3>
+          <p style="font-size:12px; text-transform:uppercase; font-weight:700; color:var(--secondary); letter-spacing:0.5px; margin-bottom:12px;">Chairman of the Board of Trustees</p>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Retired civil engineer. Dedicated to executing financial governance, strategic construction planning, and community development frameworks.</p>
+        </div>
+
+        <!-- Sister's Coordinator -->
+        <div style="background:var(--white); border: 1px solid var(--border-color); border-radius:12px; overflow:hidden; text-align:center; box-shadow:var(--shadow-sm); padding:30px 24px;">
+          <div style="width:120px; height:120px; border-radius:50%; background-color: var(--primary-glow); color:var(--primary); font-size: 40px; display:flex; align-items:center; justify-content:center; margin: 0 auto 20px; font-weight:700; border:3px solid var(--secondary-light);">
+             FAH
+          </div>
+          <h3 style="font-family:var(--font-serif); font-size:20px; color: var(--primary); font-weight:700; margin-bottom:4px;">Ustadha Fatima Al-Hassan</h3>
+          <p style="font-size:12px; text-transform:uppercase; font-weight:700; color:var(--secondary); letter-spacing:0.5px; margin-bottom:12px;">Sisters' Affairs Director</p>
+          <p style="font-size:14px; color:var(--text-muted); line-height:1.5;">Educator and Arabic counselor. Directs weekly sisters' Halaqahs, nursery classes, youth social circles, and spiritual mentorship circles.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Standard footer component -->
+  <footer class="footer">
+    <div class="container footer-top">
+      <div class="footer-column">
+        <h4 style="font-family: var(--font-serif); color: var(--secondary-light); margin-bottom: 12px; font-size: 22px;">Al-Noor Masjid</h4>
+        <p style="margin-bottom: 15px; color: rgba(255,255,255,0.75);">A cornerstone of spiritual education, congregational worship, and benevolent community charity. Dedicated to fostering mutual trust, knowledge, and service.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-circle"><i data-lucide="facebook"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="twitter"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="youtube"></i></a>
+          <a href="#" class="social-circle"><i data-lucide="instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/about.html">About Masjid</a></li>
+          <li><a href="/articles.html">Islamic Library</a></li>
+          <li><a href="/gallery.html">Photo Gallery</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Weekly Programs</h4>
+        <ul>
+          <li><strong style="color: var(--secondary-light);">Quran Tafseer:</strong> Saturday after Asr</li>
+          <li><strong style="color: var(--secondary-light);">Sisters' Halaqah:</strong> Monday at 6:00 PM</li>
+          <li><strong style="color: var(--secondary-light);">Youth Mentorship:</strong> Friday at 7:30 PM</li>
+          <li><strong style="color: var(--secondary-light);">Tajweed Classes:</strong> Sunday morning</li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Get in Touch</h4>
+        <p style="margin-bottom:12px;">📍 786 Olive Branch Boulevard, Crescent District, Capital City, CC 89502</p>
+        <p style="margin-bottom:12px;">📞 +1 (555) 786-1234</p>
+        <p style="margin-bottom:12px;">✉️ office@alnoormasjid.org</p>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2026 Al-Noor Grand Masjid & Islamic Center. All rights reserved. Crafted as a pristine Islamic community management solution.</p>
+    </div>
+  </footer>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>

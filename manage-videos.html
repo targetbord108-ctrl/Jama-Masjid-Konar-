@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Video Lectures - Mosque Management Platform</title>
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="/css/style.css">
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <div class="admin-layout">
+
+    <!-- Persistent Left Navigation Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-header">
+        <i data-lucide="shield-check" style="color:var(--secondary-light); width:28px; height:28px;"></i>
+        <h2 class="sidebar-text" style="font-family:var(--font-serif); font-size:16px; font-weight:700; color:var(--white);">AL-NOOR BOARD</h2>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li>
+          <a href="/admin-dashboard.html" class="sidebar-link">
+            <i data-lucide="layout-dashboard"></i>
+            <span class="sidebar-text">Dashboard Overview</span>
+          </a>
+        </li>
+        <li>
+          <a href="/accounts.html" class="sidebar-link">
+            <i data-lucide="wallet"></i>
+            <span class="sidebar-text">Financial Ledger</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-articles.html" class="sidebar-link">
+            <i data-lucide="file-edit"></i>
+            <span class="sidebar-text">Publish Content</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-gallery.html" class="sidebar-link">
+            <i data-lucide="image"></i>
+            <span class="sidebar-text">Manage Gallery</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-videos.html" class="sidebar-link active">
+            <i data-lucide="video"></i>
+            <span class="sidebar-text">Manage Videos</span>
+          </a>
+        </li>
+        <li>
+          <a href="/manage-admins.html" class="sidebar-link">
+            <i data-lucide="users"></i>
+            <span class="sidebar-text">Manage Admins</span>
+          </a>
+        </li>
+        <li>
+          <a href="/media-settings.html" class="sidebar-link">
+            <i data-lucide="image-plus"></i>
+            <span class="sidebar-text">Media & Socials</span>
+          </a>
+        </li>
+        <li>
+          <a href="/settings.html" class="sidebar-link">
+            <i data-lucide="cog"></i>
+            <span class="sidebar-text">Profile & Timings</span>
+          </a>
+        </li>
+        <li style="margin-top:auto;">
+          <a href="#" class="sidebar-link text-danger" id="admin-logout-btn">
+            <i data-lucide="log-out"></i>
+            <span class="sidebar-text">Sign Out</span>
+          </a>
+        </li>
+      </ul>
+
+      <!-- Active Session Profile Footer Rail -->
+      <div class="sidebar-profile">
+        <div class="sidebar-avatar" id="sidebar-user-avatar">SA</div>
+        <div class="sidebar-profile-info">
+          <span class="sidebar-user-name" id="sidebar-user-name">Loading Account</span>
+          <span class="sidebar-user-role" id="sidebar-user-role">Super Admin</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Section -->
+    <main class="admin-main">
+      <header class="admin-header">
+        <div>
+          <h2 class="admin-header-title">Islamic Lectures & Video Gallery</h2>
+          <span style="font-size:12px; color:var(--text-muted); font-weight:500;">Manage public video recordings, sermon links, and theological lectures</span>
+        </div>
+        <div style="text-align:right;">
+          <button class="btn btn-primary btn-sm" id="videos-add-btn">
+            <i data-lucide="plus-circle"></i> Upload Lecture Video
+          </button>
+        </div>
+      </header>
+
+      <div class="admin-body">
+        
+        <div class="admin-grid-settings" style="grid-template-columns: 1fr; gap: 24px;">
+          
+          <!-- Videos List container -->
+          <div class="admin-table-container">
+            <div class="table-header-bar" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+              <h3 style="font-family:var(--font-serif); font-size:18px; color:var(--primary); font-weight:700;">
+                🎥 Published Video Catalog
+              </h3>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <input type="text" id="videos-search-bar" class="search-input text-sm" placeholder="Search by title or speaker..." style="padding: 6px 12px; font-size:13px; min-width:240px; margin:0;">
+              </div>
+            </div>
+
+            <div style="padding: 24px; display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;" id="videos-grid-roster">
+              <!-- Rendered Dynamically through script -->
+              <div style="text-align:center; padding:40px; grid-column: 1 / -1; color:var(--text-muted);">
+                <p>Loading lecture videos database...</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Video Upload/Editor Modal -->
+  <div class="dialog-overlay" id="video-editor-modal" style="display: none;">
+    <div class="dialog-box" style="max-width: 550px;">
+      <div class="dialog-header">
+        <h3 id="video-modal-title">Upload Video Link</h3>
+        <button class="dialog-close" id="video-modal-close"><i data-lucide="x"></i></button>
+      </div>
+      <div class="dialog-body" style="padding-top:15px;">
+        <form id="video-editor-form" style="display:flex; flex-direction:column; gap:16px;">
+          <div class="form-group">
+            <label for="video-url" class="form-label">YouTube Video URL or ID *</label>
+            <input type="text" id="video-url" class="form-input" placeholder="e.g. https://www.youtube.com/watch?v=dQw4w9WgXcQ or simply dQw4w9WgXcQ" required>
+            <small style="color:var(--text-muted); font-size:11.5px; margin-top:4px; display:block;">We automatically generate high-quality thumbnails and embed players from this link.</small>
+          </div>
+          
+          <div class="form-group">
+            <label for="video-title" class="form-label">Lecture / Khutbah Title *</label>
+            <input type="text" id="video-title" class="form-input" placeholder="e.g. Purifying the Soul: Devotion & Mindfulness" required>
+          </div>
+
+          <div class="form-group">
+            <label for="video-speaker" class="form-label">Speaker / Sheikh *</label>
+            <input type="text" id="video-speaker" class="form-input" placeholder="e.g. Imam Sheikh Muhammad Al-Azhari" required>
+          </div>
+
+          <div class="form-group">
+            <label for="video-description" class="form-label">Brief Description / Synopsis *</label>
+            <textarea id="video-description" class="form-input" rows="3" placeholder="Provide a concise description of the topics discussed." required style="resize:vertical; font-family:inherit;"></textarea>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label for="video-duration" class="form-label">Duration (e.g. 45:20) *</label>
+              <input type="text" id="video-duration" class="form-input" placeholder="45:00" required value="40:15">
+            </div>
+            <div class="form-group">
+              <label for="video-date" class="form-label">Publishing Date *</label>
+              <input type="date" id="video-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="video-thumbnail-custom" class="form-label">Custom Thumbnail URL (Optional)</label>
+            <input type="text" id="video-thumbnail-custom" class="form-input" placeholder="Leave blank to use YouTube thumbnail fallback">
+          </div>
+        </form>
+      </div>
+      <div class="dialog-footer">
+        <button class="btn btn-secondary btn-sm" id="video-modal-cancel">Cancel</button>
+        <button class="btn btn-primary btn-sm" id="video-modal-save">Publish Lecture</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast spawner element -->
+  <div id="admin-alert-toast" class="toast-msg"></div>
+
+  <!-- Database & Operations Linking -->
+  <script type="module" src="/js/db.js"></script>
+  <script type="module" src="/js/admin.js"></script>
+</body>
+</html>
